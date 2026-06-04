@@ -42,3 +42,6 @@ next-env.d.ts
 
 # SQLite waitlist database
 /data
+
+# Local waitlist backups (contain personal emails — never commit)
+/waitlist-backup-*.json

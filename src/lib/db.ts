@@ -2,8 +2,11 @@ import Database from "better-sqlite3";
 import path from "node:path";
 import fs from "node:fs";
 
-// Persist the SQLite file at the project root (./data/waitlist.db).
-const DATA_DIR = path.join(process.cwd(), "data");
+// Persist the SQLite file on the Railway volume in production
+// (RAILWAY_VOLUME_MOUNT_PATH is injected automatically when a volume is
+// attached), falling back to ./data locally.
+const DATA_DIR =
+  process.env.RAILWAY_VOLUME_MOUNT_PATH ?? path.join(process.cwd(), "data");
 const DB_PATH = path.join(DATA_DIR, "waitlist.db");
 
 declare global {
