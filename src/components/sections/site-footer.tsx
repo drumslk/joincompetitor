@@ -38,6 +38,8 @@ const SOCIALS = [
 ];
 
 export function SiteFooter() {
+  const year = new Date().getFullYear();
+
   return (
     <footer className="relative overflow-hidden border-t border-white/10 bg-black py-16">
       <div
@@ -67,7 +69,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-12 flex w-full flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-xs text-zinc-500 sm:flex-row">
-          <p>© 2024 Competitor Arena LLC. All rights reserved.</p>
+          <p>© {year} Competitor Arena LLC. All rights reserved.</p>
           <div className="flex items-center gap-4">
             <a href="#" className="transition-colors hover:text-zinc-300">
               Privacy Policy
