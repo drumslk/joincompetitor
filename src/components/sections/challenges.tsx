@@ -1,6 +1,8 @@
 import { Flame, Dumbbell, HeartPulse, Swords, Star } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { SectionHeading } from "./section-heading";
+import { Reveal } from "@/components/fx/reveal";
+import { Tilt } from "@/components/fx/tilt";
 
 type Challenge = {
   title: string;
@@ -51,39 +53,56 @@ export function Challenges() {
   return (
     <section id="challenges" className="border-t border-white/5 py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeading>Challenges</SectionHeading>
+        <Reveal>
+          <SectionHeading>Challenges</SectionHeading>
+        </Reveal>
 
         <div className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
           {CHALLENGES.map(({ title, icon: Icon, items, image }, i) => (
-            <article
+            <Reveal
               key={title}
-              className="group relative h-72 overflow-hidden rounded-lg ring-1 ring-white/10 transition-all duration-300 hover:ring-primary/60 last:max-sm:col-span-2"
+              delay={i * 90}
+              className="last:max-sm:col-span-2"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={image}
-                alt={`${title} challenges`}
-                loading={i < 3 ? "eager" : "lazy"}
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/20" />
+              <Tilt max={8}>
+                <article className="group relative h-72 overflow-hidden rounded-lg ring-1 ring-white/10 transition-all duration-300 hover:ring-primary/60">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={image}
+                    alt={`${title} challenges`}
+                    loading={i < 3 ? "eager" : "lazy"}
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/20" />
 
-              <div className="absolute inset-x-0 bottom-0 p-5">
-                <span className="flex size-10 items-center justify-center rounded-full bg-primary/15 ring-1 ring-primary/40">
-                  <Icon className="size-5 text-primary" strokeWidth={1.9} />
-                </span>
-                <h3 className="mt-3 font-display text-2xl tracking-tight text-white">
-                  {title}
-                </h3>
-                <ul className="mt-1 space-y-0.5">
-                  {items.map((item) => (
-                    <li key={item} className="text-sm text-zinc-300">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </article>
+                  {/* Cursor-following glare */}
+                  <div
+                    aria-hidden
+                    className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                    style={{
+                      background:
+                        "radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(255,255,255,0.18), transparent 45%)",
+                    }}
+                  />
+
+                  <div className="absolute inset-x-0 bottom-0 p-5">
+                    <span className="flex size-10 items-center justify-center rounded-full bg-primary/15 ring-1 ring-primary/40">
+                      <Icon className="size-5 text-primary" strokeWidth={1.9} />
+                    </span>
+                    <h3 className="mt-3 font-display text-2xl tracking-tight text-white">
+                      {title}
+                    </h3>
+                    <ul className="mt-1 space-y-0.5">
+                      {items.map((item) => (
+                        <li key={item} className="text-sm text-zinc-300">
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </article>
+              </Tilt>
+            </Reveal>
           ))}
         </div>
       </div>

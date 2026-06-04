@@ -1,4 +1,6 @@
 import { SectionHeading } from "./section-heading";
+import { Reveal } from "@/components/fx/reveal";
+import { EVENT_LABEL } from "@/lib/event";
 
 const FAQS = [
   {
@@ -6,8 +8,8 @@ const FAQS = [
     a: "Competitor is the Worldwide Fitness League. Complete fitness challenges from anywhere, compare your results against athletes around the globe, and earn your place in the Finals.",
   },
   {
-    q: "When does Season 1 start?",
-    a: "Season 1 kicks off in January 2027. Weekly challenges run from January through April, playoffs in May, and the Competitor Finals in June.",
+    q: "When does the next event start?",
+    a: `The next event kicks off on ${EVENT_LABEL}. Weekly challenges lead into the playoffs, with the Competitor Finals crowning the world champion.`,
   },
   {
     q: "Do I need a gym or special equipment?",
@@ -23,11 +25,13 @@ export function Faq() {
   return (
     <section id="faq" className="border-t border-white/5 py-20">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <SectionHeading>FAQ</SectionHeading>
+        <Reveal>
+          <SectionHeading>FAQ</SectionHeading>
+        </Reveal>
 
         <div className="mt-12 divide-y divide-white/10">
-          {FAQS.map(({ q, a }) => (
-            <details key={q} className="group py-5">
+          {FAQS.map(({ q, a }, i) => (
+            <Reveal key={q} as="details" delay={i * 80} className="group py-5">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4">
                 <span className="font-display text-xl tracking-tight text-white">
                   {q}
@@ -39,7 +43,7 @@ export function Faq() {
               <p className="mt-3 max-w-2xl text-sm leading-relaxed text-zinc-400">
                 {a}
               </p>
-            </details>
+            </Reveal>
           ))}
         </div>
       </div>

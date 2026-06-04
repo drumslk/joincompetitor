@@ -11,6 +11,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { Confetti } from "@/components/fx/confetti";
+import { EVENT_LABEL } from "@/lib/event";
 import { cn } from "@/lib/utils";
 
 type WaitlistContextValue = {
@@ -31,6 +33,7 @@ export function WaitlistProvider({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = React.useState(false);
   const [email, setEmail] = React.useState("");
   const [status, setStatus] = React.useState<"idle" | "loading" | "done">("idle");
+  const [celebrate, setCelebrate] = React.useState(0);
 
   const open = React.useCallback(() => {
     setStatus("idle");
@@ -61,6 +64,7 @@ export function WaitlistProvider({ children }: { children: React.ReactNode }) {
       }
 
       setStatus("done");
+      setCelebrate((n) => n + 1);
       if (data.alreadyJoined) {
         toast.success("You're already on the list — see you in Season 1!");
       } else {
@@ -77,7 +81,8 @@ export function WaitlistProvider({ children }: { children: React.ReactNode }) {
       {children}
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="border-white/10 bg-[#0b0b0d] sm:max-w-md">
+        <DialogContent className="overflow-hidden border-white/10 bg-[#0b0b0d] sm:max-w-md">
+          <Confetti fire={celebrate} />
           <div
             aria-hidden
             className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent"
@@ -138,7 +143,7 @@ export function WaitlistProvider({ children }: { children: React.ReactNode }) {
                 )}
               </button>
               <p className="text-center text-xs text-muted-foreground">
-                Season 1 · January 2027 · No spam, unsubscribe anytime.
+                Next event · {EVENT_LABEL} · No spam, unsubscribe anytime.
               </p>
             </form>
           )}
@@ -163,6 +168,7 @@ export function WaitlistButton({
   ...props
 }: WaitlistButtonProps) {
   const { open } = useWaitlist();
+  const ref = React.useRef<HTMLButtonElement>(null);
 
   const sizes: Record<string, string> = {
     sm: "h-9 px-4 text-sm",
@@ -170,20 +176,45 @@ export function WaitlistButton({
     lg: "h-14 px-10 text-xl",
   };
 
+  // Magnetic pull: the button drifts a little toward the cursor while hovered.
+  function handleMove(e: React.MouseEvent<HTMLButtonElement>) {
+    const el = ref.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const x = e.clientX - (rect.left + rect.width / 2);
+    const y = e.clientY - (rect.top + rect.height / 2);
+    el.style.transform = `translate(${x * 0.18}px, ${y * 0.3}px)`;
+  }
+
+  function reset() {
+    const el = ref.current;
+    if (el) el.style.transform = "";
+  }
+
   return (
     <button
+      ref={ref}
       type="button"
       onClick={open}
+      onMouseMove={handleMove}
+      onMouseLeave={reset}
       className={cn(
         "group relative inline-flex items-center justify-center overflow-hidden rounded-md",
         "bg-primary font-display tracking-wide text-primary-foreground",
-        "transition-all duration-200 hover:bg-primary/90",
-        "hover:shadow-[0_0_36px_-6px] hover:shadow-primary active:translate-y-px",
+        "transition-[transform,background-color,box-shadow] duration-200 ease-out hover:bg-primary/90",
+        "hover:shadow-[0_0_36px_-6px] hover:shadow-primary active:scale-[0.97]",
+        "motion-reduce:!transform-none",
         sizes[size],
         className,
       )}
       {...props}
     >
+      {/* Pulsing halo behind the button */}
+      <span
+        aria-hidden
+        className="absolute -inset-1 -z-10 rounded-lg bg-primary/40 opacity-0 blur-lg transition-opacity duration-300 group-hover:opacity-100"
+      />
+      {/* Sheen sweep on hover */}
       <span
         aria-hidden
         className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 group-hover:translate-x-full"

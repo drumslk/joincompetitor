@@ -3,6 +3,7 @@ import { Inter, Saira_Condensed } from "next/font/google";
 import "./globals.css";
 import { WaitlistProvider } from "@/components/waitlist";
 import { Toaster } from "@/components/ui/sonner";
+import { EVENT_LABEL } from "@/lib/event";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -17,8 +18,7 @@ const saira = Saira_Condensed({
 
 export const metadata: Metadata = {
   title: "Competitor — The World Competes Here",
-  description:
-    "The Worldwide Fitness League. Compete against athletes worldwide, climb the rankings and earn your place in the Finals. Season 1 — January 2027.",
+  description: `The Worldwide Fitness League. Compete against athletes worldwide, climb the rankings and earn your place in the Finals. Next event — ${EVENT_LABEL}.`,
 };
 
 export default function RootLayout({

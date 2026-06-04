@@ -42,6 +42,8 @@
   --radius-xl: calc(var(--radius) * 1.4);
 
   --animate-marquee: marquee 28s linear infinite;
+  --animate-orb: orb-float 18s ease-in-out infinite;
+  --animate-kenburns: kenburns 22s ease-in-out infinite alternate;
 }
 
 :root {
@@ -115,6 +117,180 @@
 
   .ping-dot {
     animation: ping-dot 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  /* ---- Scroll reveal ---- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .reveal-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ---- Slow Ken Burns pan/zoom for hero collage ---- */
+  .kenburns {
+    animation: var(--animate-kenburns);
+  }
+
+  /* ---- Floating red glow orbs (decorative background) ---- */
+  .orb {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(80px);
+    background: radial-gradient(
+      circle at center,
+      rgba(225, 29, 43, 0.45),
+      transparent 70%
+    );
+    animation: var(--animate-orb);
+    pointer-events: none;
+  }
+
+  /* ---- Hero text entrance + ambient motion ---- */
+  .hero-rise {
+    opacity: 0;
+    animation: hero-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  .hero-glow {
+    animation: title-glow 4.5s ease-in-out infinite;
+  }
+  .text-sheen {
+    background: linear-gradient(
+      100deg,
+      #e11d2b 0%,
+      #ff6b76 30%,
+      #ffffff 50%,
+      #ff6b76 70%,
+      #e11d2b 100%
+    );
+    background-size: 220% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: text-sheen 5s linear infinite;
+  }
+
+  /* ---- Subtle film grain overlay ---- */
+  .grain::before {
+    content: "";
+    position: fixed;
+    inset: -200%;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grain 0.6s steps(2) infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .kenburns,
+  .orb,
+  .grain::before,
+  .hero-glow,
+  .text-sheen {
+    animation: none;
+  }
+  .hero-rise {
+    opacity: 1;
+    animation: none;
+  }
+  .text-sheen {
+    color: #e11d2b;
+  }
+}
+
+@keyframes hero-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(46px) skewY(3deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) skewY(0);
+  }
+}
+
+@keyframes text-sheen {
+  0% {
+    background-position: 220% 0;
+  }
+  100% {
+    background-position: -220% 0;
+  }
+}
+
+@keyframes title-glow {
+  0%,
+  100% {
+    text-shadow: 0 2px 30px rgba(0, 0, 0, 0.8);
+  }
+  50% {
+    text-shadow:
+      0 0 38px rgba(225, 29, 43, 0.5),
+      0 2px 30px rgba(0, 0, 0, 0.85);
+  }
+}
+
+@keyframes kenburns {
+  from {
+    transform: scale(1) translate(0, 0);
+  }
+  to {
+    transform: scale(1.12) translate(-1.5%, -1.5%);
+  }
+}
+
+@keyframes orb-float {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(6%, -8%) scale(1.12);
+  }
+  66% {
+    transform: translate(-5%, 5%) scale(0.94);
+  }
+}
+
+@keyframes grain {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-4%, 3%);
+  }
+  50% {
+    transform: translate(3%, -4%);
+  }
+  75% {
+    transform: translate(-3%, -2%);
+  }
+  100% {
+    transform: translate(2%, 4%);
+  }
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-10px) rotateZ(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(var(--cf-dist, 380px)) rotateZ(var(--cf-rot, 540deg));
+    opacity: 0;
   }
 }
 

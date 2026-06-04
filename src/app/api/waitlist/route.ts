@@ -6,6 +6,32 @@ export const runtime = "nodejs";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+// Make.com webhook fired on each *new* waitlist signup.
+// Override in production via WAITLIST_WEBHOOK_URL if needed.
+const WEBHOOK_URL =
+  process.env.WAITLIST_WEBHOOK_URL ??
+  "https://hook.eu1.make.com/rg8j99rxiqct550kwa8f69fwblkvaegd";
+
+// Notify the webhook without ever failing the signup itself.
+async function notifyWebhook(payload: Record<string, unknown>) {
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 5000);
+    const res = await fetch(WEBHOOK_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+      signal: controller.signal,
+    });
+    clearTimeout(timeout);
+    if (!res.ok) {
+      console.error("waitlist webhook returned", res.status);
+    }
+  } catch (err) {
+    console.error("waitlist webhook failed", err);
+  }
+}
+
 export async function POST(request: Request) {
   let email: unknown;
 
@@ -29,6 +55,15 @@ export async function POST(request: Request) {
     const result = db
       .prepare("INSERT INTO waitlist (email) VALUES (?)")
       .run(normalized);
+
+    // New signup -> notify Make.com. Awaited so it isn't cut off when the
+    // response returns, but never blocks success on the webhook's outcome.
+    await notifyWebhook({
+      email: normalized,
+      id: Number(result.lastInsertRowid),
+      source: "waitlist",
+      createdAt: new Date().toISOString(),
+    });
 
     return NextResponse.json(
       { ok: true, id: result.lastInsertRowid },
