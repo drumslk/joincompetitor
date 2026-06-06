@@ -35,9 +35,9 @@ export function SiteHeader() {
           : "border-b border-transparent bg-gradient-to-b from-black/70 to-transparent",
       )}
     >
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-24 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <a href="#top" className="flex items-center" aria-label="Competitor home">
-          <Logo />
+          <Logo className="h-20" />
         </a>
 
         <nav className="hidden items-center gap-8 lg:flex">

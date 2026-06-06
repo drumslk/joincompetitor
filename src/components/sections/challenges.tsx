@@ -15,21 +15,21 @@ const CHALLENGES: Challenge[] = [
   {
     title: "Push",
     icon: Flame,
-    items: ["Push-Ups", "Dips", "Bench Press"],
+    items: ["Pull-Ups", "Push-Ups", "Air Squats", "Burpees"],
     image:
       "https://images.unsplash.com/photo-1599058917212-d750089bc07e?auto=format&fit=crop&w=520&q=80",
   },
   {
     title: "Strength",
     icon: Dumbbell,
-    items: ["Squat", "Deadlift", "Pull-Ups"],
+    items: ["Squat", "Deadlift", "Bench Press"],
     image:
       "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=520&q=80",
   },
   {
     title: "Endurance",
     icon: HeartPulse,
-    items: ["Wall Sit", "Plank", "Treadmill Challenges"],
+    items: ["Wall Sit", "Plank", "Dead Hang", "Treadmill Sprint"],
     image:
       "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&w=520&q=80",
   },

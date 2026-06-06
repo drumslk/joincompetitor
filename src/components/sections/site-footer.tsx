@@ -21,20 +21,10 @@ function Instagram({ className }: IconProps) {
   );
 }
 
-function Youtube({ className }: IconProps) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
-      <rect x="2" y="5" width="20" height="14" rx="4" stroke="currentColor" strokeWidth="1.8" />
-      <path d="M10 9.5v5l4.5-2.5L10 9.5Z" fill="currentColor" />
-    </svg>
-  );
-}
-
 const SOCIALS = [
-  { label: "Instagram", href: "#", Icon: Instagram },
-  { label: "TikTok", href: "#", Icon: TikTok },
-  { label: "YouTube", href: "#", Icon: Youtube },
-  { label: "Email", href: "mailto:hello@competitor.gg", Icon: Mail },
+  { label: "Instagram", href: "https://instagram.com/joincompetitor", Icon: Instagram },
+  { label: "TikTok", href: "https://tiktok.com/@joincompetitor", Icon: TikTok },
+  { label: "Email", href: "mailto:hello@joincompetitor.com", Icon: Mail },
 ];
 
 export function SiteFooter() {
@@ -47,25 +37,24 @@ export function SiteFooter() {
         className="pointer-events-none absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-primary to-transparent"
       />
       <div className="mx-auto flex max-w-7xl flex-col items-center px-4 text-center sm:px-6 lg:px-8">
-        <LogoMark className="h-12 w-12" />
-        <p className="mt-4 font-display text-4xl tracking-tight text-white sm:text-5xl">
-          Competitor
-        </p>
-        <p className="mt-2 font-display text-sm tracking-[0.25em] text-primary">
-          Beat. Compete. Repeat.
-        </p>
+        <LogoMark className="h-40 w-auto sm:h-48" />
 
         <div className="mt-8 flex items-center gap-3">
-          {SOCIALS.map(({ label, href, Icon }) => (
+          {SOCIALS.map(({ label, href, Icon }) => {
+            const isExternal = href.startsWith("http");
+            return (
             <a
               key={label}
               href={href}
               aria-label={label}
+              target={isExternal ? "_blank" : undefined}
+              rel={isExternal ? "noopener noreferrer" : undefined}
               className="flex size-10 items-center justify-center rounded-full text-zinc-300 ring-1 ring-white/15 transition-all hover:text-white hover:ring-primary"
             >
               <Icon className="size-5" />
             </a>
-          ))}
+            );
+          })}
         </div>
 
         <div className="mt-12 flex w-full flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-xs text-zinc-500 sm:flex-row">
