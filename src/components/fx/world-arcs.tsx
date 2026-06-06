@@ -7,16 +7,16 @@ import * as React from "react";
 // against the background image (950x620, object-contain in a 2:1 box):
 //   x = 50 + 0.2128 * lon      y = 27 - 0.2874 * lat
 const CITIES = [
-  { x: 24.8, y: 17.2 }, // Los Angeles
+  { x: 23.5, y: 17.2 }, // Los Angeles
   { x: 32.9, y: 19.6 }, // Miami
-  { x: 40.8, y: 33.6 }, // Rio de Janeiro
+  { x: 38.5, y: 33.0 }, // Rio de Janeiro
   { x: 48.3, y: 17.9 }, // Marrakech
   { x: 50.5, y: 13.0 }, // Paris
   { x: 52.7, y: 15.0 }, // Rome
   { x: 53.9, y: 36.8 }, // Cape Town
   { x: 62.3, y: 32.9 }, // Mauritius
   { x: 66.4, y: 18.8 }, // New Delhi
-  { x: 79.7, y: 16.8 }, // Tokyo
+  { x: 78.0, y: 16.8 }, // Tokyo
   { x: 82.2, y: 36.7 }, // Sydney
 ];
 
