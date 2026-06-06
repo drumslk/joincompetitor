@@ -55,7 +55,7 @@ export function Hero() {
   }
 
   return (
-    <section id="about" className="relative overflow-hidden pt-16">
+    <section id="about" className="relative overflow-hidden pt-20">
       {/* Media band with looping background video */}
       <div
         ref={mediaRef}
