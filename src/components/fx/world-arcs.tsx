@@ -2,34 +2,39 @@
 
 import * as React from "react";
 
-// City positions on the equirectangular map, in viewBox units (100 x 50).
+// City positions on the world map, in viewBox units (100 x 50). Computed from
+// each city's real lon/lat through the map's displayed projection, calibrated
+// against the background image (950x620, object-contain in a 2:1 box):
+//   x = 50 + 0.2128 * lon      y = 27 - 0.2874 * lat
 const CITIES = [
-  { x: 26, y: 19.5 }, // North America (west)
-  { x: 16, y: 22 }, // North America
-  { x: 33, y: 35 }, // South America
-  { x: 49, y: 16 }, // Europe
-  { x: 51, y: 18 }, // Europe
-  { x: 52, y: 28.5 }, // Africa
-  { x: 61, y: 23 }, // Middle East
-  { x: 69, y: 26 }, // South Asia
-  { x: 77, y: 21.5 }, // East Asia
-  { x: 84, y: 21 }, // Japan
-  { x: 85, y: 38 }, // Australia
-  { x: 63, y: 35.5 }, // Indian Ocean
+  { x: 24.8, y: 17.2 }, // Los Angeles
+  { x: 32.9, y: 19.6 }, // Miami
+  { x: 40.8, y: 33.6 }, // Rio de Janeiro
+  { x: 48.3, y: 17.9 }, // Marrakech
+  { x: 50.5, y: 13.0 }, // Paris
+  { x: 52.7, y: 15.0 }, // Rome
+  { x: 53.9, y: 36.8 }, // Cape Town
+  { x: 62.3, y: 32.9 }, // Mauritius
+  { x: 66.4, y: 18.8 }, // New Delhi
+  { x: 79.7, y: 16.8 }, // Tokyo
+  { x: 82.2, y: 36.7 }, // Sydney
 ];
 
 // Pairs of city indices to connect with an arc.
 const LINKS: [number, number][] = [
-  [3, 0],
-  [4, 8],
-  [0, 10],
-  [3, 5],
-  [1, 2],
-  [8, 9],
-  [6, 7],
-  [4, 11],
-  [9, 10],
-  [5, 7],
+  [0, 1], // LA – Miami
+  [1, 2], // Miami – Rio
+  [0, 9], // LA – Tokyo
+  [4, 1], // Paris – Miami
+  [3, 4], // Marrakech – Paris
+  [4, 5], // Paris – Rome
+  [5, 6], // Rome – Cape Town
+  [6, 7], // Cape Town – Mauritius
+  [7, 8], // Mauritius – New Delhi
+  [8, 9], // New Delhi – Tokyo
+  [9, 10], // Tokyo – Sydney
+  [2, 6], // Rio – Cape Town
+  [4, 8], // Paris – New Delhi
 ];
 
 /** Quadratic arc between two points, bowed outward for a "flight path" look. */
