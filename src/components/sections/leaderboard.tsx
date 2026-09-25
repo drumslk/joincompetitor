@@ -28,7 +28,7 @@ const ATHLETES: Row[] = [
 const TREND = {
   up: { Icon: TrendingUp, cls: "text-emerald-400" },
   down: { Icon: TrendingDown, cls: "text-primary" },
-  flat: { Icon: Minus, cls: "text-zinc-500" },
+  flat: { Icon: Minus, cls: "text-zinc-400" },
 } as const;
 
 function LiveRow({ row, rank }: { row: Row; rank: number }) {
@@ -45,21 +45,21 @@ function LiveRow({ row, rank }: { row: Row; rank: number }) {
   }, [rank]);
 
   return (
-    <div className="flex items-center gap-4 rounded-lg bg-white/[0.03] px-4 py-3 ring-1 ring-white/5 transition-colors hover:bg-white/[0.06]">
+    <div className="flex items-center gap-2.5 rounded-lg bg-white/[0.03] px-3 py-3 ring-1 ring-white/5 transition-colors hover:bg-white/[0.06] sm:gap-4 sm:px-4">
       <span
         className={cn(
-          "w-8 shrink-0 font-display text-xl tabular-nums not-italic",
-          rank <= 3 ? "text-primary" : "text-zinc-500",
+          "w-6 shrink-0 font-display text-lg tabular-nums not-italic sm:w-8 sm:text-xl",
+          rank <= 3 ? "text-primary" : "text-zinc-400",
         )}
       >
         {String(rank).padStart(2, "0")}
       </span>
       <span className="text-lg leading-none">{row.flag}</span>
       <span className="flex-1 truncate font-medium text-white">{row.name}</span>
-      <span className="hidden text-xs uppercase tracking-wider text-zinc-500 sm:block">
+      <span className="hidden text-xs uppercase tracking-wider text-zinc-400 sm:block">
         {row.country}
       </span>
-      <span className="w-20 text-right font-display text-lg tabular-nums not-italic text-white">
+      <span className="w-16 text-right font-display text-base tabular-nums not-italic text-white sm:w-20 sm:text-lg">
         {score.toLocaleString("en-US")}
       </span>
       <Icon className={cn("size-4 shrink-0", cls)} strokeWidth={2.2} />
@@ -69,11 +69,11 @@ function LiveRow({ row, rank }: { row: Row; rank: number }) {
 
 export function Leaderboard() {
   return (
-    <section id="leaderboard" className="border-t border-white/5 py-20">
+    <section id="leaderboard" className="border-t border-white/5 py-16 sm:py-20">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <Reveal>
           <SectionHeading>Global Rankings</SectionHeading>
-          <p className="mt-4 text-center text-sm text-zinc-400">
+          <p className="mt-4 text-center text-sm text-zinc-300">
             <span className="relative mr-2 inline-flex size-2 align-middle">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex size-2 rounded-full bg-emerald-400" />
@@ -90,7 +90,7 @@ export function Leaderboard() {
           ))}
         </div>
 
-        <p className="mt-8 text-center font-display text-sm tracking-wide text-zinc-500">
+        <p className="mt-8 text-center font-display text-sm tracking-wide text-zinc-400">
           Your name could be here in Season 1.
         </p>
       </div>

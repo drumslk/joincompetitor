@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, ArrowRight } from "lucide-react";
 import { WaitlistButton } from "@/components/waitlist";
 import { WaitlistCount } from "@/components/fx/waitlist-count";
 import { Countdown } from "@/components/fx/countdown";
@@ -55,12 +55,12 @@ export function Hero() {
   }
 
   return (
-    <section id="about" className="relative overflow-hidden pt-20">
-      {/* Media band with looping background video */}
+    <section id="about" className="relative overflow-hidden pt-[4.75rem]">
+      {/* Full-screen media band with looping background video */}
       <div
         ref={mediaRef}
         onMouseMove={handleSpotlight}
-        className="group relative h-[64vh] min-h-[480px] w-full overflow-hidden"
+        className="group relative flex min-h-[calc(100dvh-4.75rem)] w-full items-center overflow-hidden"
         style={{ ["--mx" as string]: "50%", ["--my" as string]: "50%" }}
       >
         {/* Background video (parallax + slight scale) */}
@@ -72,17 +72,15 @@ export function Hero() {
           loop
           playsInline
           preload="auto"
-          style={{
-            transform: `translateY(${scrollY * 0.25}px) scale(1.06)`,
-          }}
+          style={{ transform: `translateY(${scrollY * 0.2}px) scale(1.06)` }}
         >
           <source src="/hero.mp4" type="video/mp4" />
         </video>
 
-        {/* Uniform 20% veil + soft edge gradients so the heading stays readable */}
-        <div className="absolute inset-0 bg-black/20" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/10 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
+        {/* Strong dark veil so every line of text stays perfectly readable */}
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/45 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40" />
 
         {/* Cursor spotlight: soft red/white glow following the pointer */}
         <div
@@ -94,49 +92,89 @@ export function Hero() {
           }}
         />
 
-        {/* Heading (parallax: drifts up + fades on scroll) */}
-        <div className="absolute inset-0">
-          <div
-            className="mx-auto flex h-full max-w-7xl flex-col justify-center px-4 sm:px-6 lg:px-8"
-            style={{
-              transform: `translateY(${scrollY * -0.12}px)`,
-              opacity: Math.max(0, 1 - scrollY / 600),
-            }}
-          >
-            <h1 className="hero-glow font-display text-5xl leading-[0.92] text-white text-shadow-hero sm:text-6xl lg:text-7xl">
-              <span
-                className="hero-rise block"
-                style={{ animationDelay: "0.05s" }}
-              >
-                The World
-              </span>
-              <span
-                className="hero-rise block"
-                style={{ animationDelay: "0.18s" }}
-              >
-                Competes Here
-              </span>
-            </h1>
+        {/* Hero content (parallax: drifts up + fades on scroll) */}
+        <div
+          className="relative mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8"
+          style={{
+            transform: `translateY(${scrollY * -0.1}px)`,
+            opacity: Math.max(0, 1 - scrollY / 700),
+          }}
+        >
+          <div className="max-w-3xl">
+            {/* Secondary visual signature */}
             <p
-              className="hero-rise mt-3 font-display text-xl tracking-tight sm:text-2xl"
-              style={{ animationDelay: "0.34s" }}
+              className="hero-rise flex items-center gap-3 font-display text-xs uppercase tracking-[0.35em] text-zinc-300"
+              style={{ animationDelay: "0.03s" }}
             >
-              <span className="text-sheen">The Worldwide Fitness League.</span>
-            </p>
-            <p
-              className="hero-rise mt-3 max-w-md text-base leading-relaxed text-zinc-200"
-              style={{ animationDelay: "0.5s" }}
-            >
-              Compete against athletes worldwide.
-              <br />
-              Climb the rankings.
-              <br />
-              Earn your place in the Finals.
+              <span className="h-px w-8 bg-primary" />
+              The World Competes Here.
             </p>
 
+            {/* Main title */}
+            <h1
+              className="hero-glow mt-5 font-display text-5xl leading-[0.92] text-white text-shadow-hero sm:text-6xl lg:text-7xl"
+            >
+              <span className="hero-rise block" style={{ animationDelay: "0.08s" }}>
+                The Fitness League
+              </span>
+              <span className="hero-rise block" style={{ animationDelay: "0.2s" }}>
+                for Everyone.
+              </span>
+            </h1>
+
+            {/* Red subtitle */}
+            <p
+              className="hero-rise mt-5 font-display text-xl uppercase tracking-tight text-primary sm:text-2xl"
+              style={{ animationDelay: "0.34s" }}
+            >
+              One Challenge. One Score. One Global Ranking.
+            </p>
+
+            {/* Description */}
+            <p
+              className="hero-rise mt-5 max-w-xl text-base leading-relaxed text-zinc-200 sm:text-lg"
+              style={{ animationDelay: "0.48s" }}
+            >
+              Every week, complete a new fitness challenge from your gym, home or
+              outdoors. Submit your score and video, earn points and climb the
+              global rankings.
+            </p>
+
+            {/* Season 1 info badge */}
             <div
               className="hero-rise mt-7"
-              style={{ animationDelay: "0.66s" }}
+              style={{ animationDelay: "0.6s" }}
+            >
+              <span className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-4 py-1.5 font-display text-xs uppercase tracking-[0.18em] text-white sm:text-sm">
+                <span className="relative flex size-2">
+                  <span className="absolute inline-flex size-full animate-ping rounded-full bg-primary opacity-75" />
+                  <span className="relative inline-flex size-2 rounded-full bg-primary" />
+                </span>
+                Season 1 · Jan–Apr 2027 · Free to Compete
+              </span>
+            </div>
+
+            {/* Buttons */}
+            <div
+              className="hero-rise mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4"
+              style={{ animationDelay: "0.72s" }}
+            >
+              <WaitlistButton size="lg" className="w-full sm:w-auto">
+                Join Season 1 for Free
+              </WaitlistButton>
+              <a
+                href="#how-it-works"
+                className="inline-flex h-14 w-full items-center justify-center gap-2 rounded-md border border-white/25 px-8 font-display text-lg tracking-wide text-white transition-colors hover:border-white/50 hover:bg-white/10 sm:w-auto"
+              >
+                See How It Works
+                <ArrowRight className="size-5" />
+              </a>
+            </div>
+
+            {/* Social proof */}
+            <div
+              className="hero-rise mt-8"
+              style={{ animationDelay: "0.84s" }}
             >
               <WaitlistCount />
             </div>
@@ -144,8 +182,8 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Flags marquee + CTA on black */}
-      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      {/* Global reach signature: scrolling flags band */}
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="group relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
           <div className="flex w-max animate-[marquee_28s_linear_infinite] gap-x-8 group-hover:[animation-play-state:paused]">
             {[...FLAGS, ...FLAGS].map((c, i) => (
@@ -162,20 +200,13 @@ export function Hero() {
             ))}
           </div>
         </div>
-        <p className="mt-3 text-center text-xs uppercase tracking-[0.3em] text-zinc-500">
-          and growing
+        <p className="mt-3 text-center text-xs uppercase tracking-[0.3em] text-zinc-400">
+          Athletes competing worldwide — and growing
         </p>
 
-        <div className="mt-9 flex flex-col items-center gap-5">
-          <WaitlistButton size="lg" className="w-full max-w-md">
-            Join the Waitlist
-          </WaitlistButton>
-          <div className="flex flex-col items-center gap-3">
-            <p className="font-display tracking-wide text-zinc-400">
-              Next event starts in
-            </p>
-            <Countdown />
-          </div>
+        {/* Main countdown to Season 1 */}
+        <div className="mt-10 flex justify-center">
+          <Countdown />
         </div>
       </div>
     </section>

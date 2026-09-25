@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Mail } from "lucide-react";
 import { LogoMark } from "@/components/logo";
 
@@ -31,7 +32,7 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative overflow-hidden border-t border-white/10 bg-black py-16">
+    <footer className="relative overflow-hidden border-t border-white/10 bg-background py-16">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-primary to-transparent"
@@ -57,16 +58,16 @@ export function SiteFooter() {
           })}
         </div>
 
-        <div className="mt-12 flex w-full flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-xs text-zinc-500 sm:flex-row">
+        <div className="mt-12 flex w-full flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-xs text-zinc-400 sm:flex-row">
           <p>© {year} Competitor Arena LLC. All rights reserved.</p>
           <div className="flex items-center gap-4">
-            <a href="#" className="transition-colors hover:text-zinc-300">
+            <Link href="/privacy" className="py-1 transition-colors hover:text-zinc-300">
               Privacy Policy
-            </a>
+            </Link>
             <span className="text-zinc-700">|</span>
-            <a href="#" className="transition-colors hover:text-zinc-300">
+            <Link href="/terms" className="py-1 transition-colors hover:text-zinc-300">
               Terms of Use
-            </a>
+            </Link>
           </div>
         </div>
       </div>

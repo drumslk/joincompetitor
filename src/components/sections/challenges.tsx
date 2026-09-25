@@ -1,4 +1,4 @@
-import { Flame, Dumbbell, HeartPulse, Swords, Star } from "lucide-react";
+import { Dumbbell, PersonStanding, Timer, Gauge } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { SectionHeading } from "./section-heading";
 import { Reveal } from "@/components/fx/reveal";
@@ -13,64 +13,53 @@ type Challenge = {
 
 const CHALLENGES: Challenge[] = [
   {
-    title: "Push",
-    icon: Flame,
-    items: ["Pull-Ups", "Push-Ups", "Air Squats", "Burpees"],
-    image:
-      "https://images.unsplash.com/photo-1599058917212-d750089bc07e?auto=format&fit=crop&w=520&q=80",
-  },
-  {
     title: "Strength",
     icon: Dumbbell,
-    items: ["Squat", "Deadlift", "Bench Press"],
+    items: ["Bench Press", "Squat", "Deadlift (Classic or Trapbar)"],
     image:
-      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=520&q=80",
+      "https://images.unsplash.com/photo-1652363722856-214ce6a06a44?auto=format&fit=crop&w=520&q=80",
+  },
+  {
+    title: "Bodyweight",
+    icon: PersonStanding,
+    items: ["Push-Ups", "Pull-Ups", "Burpees"],
+    image:
+      "https://images.unsplash.com/photo-1598971639058-fab3c3109a00?auto=format&fit=crop&w=520&q=80",
   },
   {
     title: "Endurance",
-    icon: HeartPulse,
-    items: ["Wall Sit", "Plank", "Dead Hang", "Treadmill Sprint"],
+    icon: Timer,
+    items: ["Dead Hang", "Plank", "Wall Sit"],
     image:
-      "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&w=520&q=80",
+      "https://images.pexels.com/photos/6303467/pexels-photo-6303467.jpeg?auto=compress&cs=tinysrgb&w=520",
   },
   {
-    title: "Battles",
-    icon: Swords,
-    items: ["Solo", "Duo", "Rival Battles"],
+    title: "Speed",
+    icon: Gauge,
+    items: ["Treadmill Sprint"],
     image:
-      "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=520&q=80",
-  },
-  {
-    title: "Finals",
-    icon: Star,
-    items: ["Only the best compete for the title."],
-    image:
-      "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=520&q=80",
+      "https://images.pexels.com/photos/4944975/pexels-photo-4944975.jpeg?auto=compress&cs=tinysrgb&w=520",
   },
 ];
 
 export function Challenges() {
   return (
-    <section id="challenges" className="border-t border-white/5 py-20">
+    <section id="challenges" className="border-t border-white/5 py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
           <SectionHeading>Challenges</SectionHeading>
         </Reveal>
 
-        <div className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+        <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {CHALLENGES.map(({ title, icon: Icon, items, image }, i) => (
-            <Reveal
-              key={title}
-              delay={i * 90}
-              className="last:max-sm:col-span-2"
-            >
+            <Reveal key={title} delay={i * 90}>
               <Tilt max={8}>
                 <article className="group relative h-72 overflow-hidden rounded-lg ring-1 ring-white/10 transition-all duration-300 hover:ring-primary/60">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={image}
                     alt={`${title} challenges`}
-                    loading={i < 3 ? "eager" : "lazy"}
+                    loading={i < 2 ? "eager" : "lazy"}
                     className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/20" />
@@ -105,6 +94,12 @@ export function Challenges() {
             </Reveal>
           ))}
         </div>
+
+        <Reveal delay={CHALLENGES.length * 90}>
+          <p className="mt-12 text-center font-display text-lg tracking-tight text-white sm:text-xl">
+            Different challenges. One complete fitness league.
+          </p>
+        </Reveal>
       </div>
     </section>
   );

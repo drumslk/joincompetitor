@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { CalendarDays, Trophy } from "lucide-react";
+import { Sparkles, CalendarDays, Trophy, Crown } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { SectionHeading } from "./section-heading";
 import { Reveal } from "@/components/fx/reveal";
@@ -11,13 +11,34 @@ type Stop = {
   icon: LucideIcon;
   period: string;
   label: string;
+  text: string;
 };
 
 const STOPS: Stop[] = [
-  { icon: CalendarDays, period: "January", label: "Season Starts" },
-  { icon: CalendarDays, period: "January - April", label: "Weekly Challenges" },
-  { icon: Trophy, period: "May", label: "Playoffs" },
-  { icon: Trophy, period: "June", label: "Competitor Finals" },
+  {
+    icon: Sparkles,
+    period: "Oct–Dec 2026",
+    label: "Pre-Season",
+    text: "Discover COMPETITOR through selected test events and early access.",
+  },
+  {
+    icon: CalendarDays,
+    period: "Jan–Apr 2027",
+    label: "Weekly Season Challenges",
+    text: "Complete the weekly challenges, earn points and climb the rankings.",
+  },
+  {
+    icon: Trophy,
+    period: "May 2027",
+    label: "Playoffs",
+    text: "The highest-ranked competitors advance to the Playoffs.",
+  },
+  {
+    icon: Crown,
+    period: "June 2027",
+    label: "Season 1 Online Finals",
+    text: "The best competitors compete for the first COMPETITOR titles.",
+  },
 ];
 
 export function Road() {
@@ -49,7 +70,7 @@ export function Road() {
   }, []);
 
   return (
-    <section id="road" className="border-t border-white/5 py-20">
+    <section id="road" className="border-t border-white/5 py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading>The Road to the Finals</SectionHeading>
 
@@ -65,8 +86,8 @@ export function Road() {
           {/* Horizontal fill (desktop only) */}
           <FillBar progress={progress} />
 
-          <div className="relative flex flex-col items-stretch gap-12 sm:flex-row sm:items-start sm:justify-between sm:gap-2">
-            {STOPS.map(({ icon: Icon, period, label }, i) => {
+          <div className="relative flex flex-col items-stretch gap-12 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+            {STOPS.map(({ icon: Icon, period, label, text }, i) => {
               const active = progress >= i / (STOPS.length - 1) - 0.02;
               return (
                 <Reveal
@@ -95,20 +116,30 @@ export function Road() {
                   </div>
                   <p
                     className={cn(
-                      "mt-4 font-display text-lg tracking-tight transition-colors duration-500",
-                      active ? "text-white" : "text-zinc-500",
+                      "mt-4 font-display text-sm uppercase tracking-[0.18em] transition-colors duration-500",
+                      active ? "text-primary" : "text-primary/50",
                     )}
                   >
                     {period}
                   </p>
-                  <p className="mt-1 text-sm text-zinc-400">{label}</p>
+                  <p
+                    className={cn(
+                      "mt-1 font-display text-lg tracking-tight transition-colors duration-500",
+                      active ? "text-white" : "text-zinc-400",
+                    )}
+                  >
+                    {label}
+                  </p>
+                  <p className="mx-auto mt-2 max-w-[15rem] text-sm leading-relaxed text-zinc-300">
+                    {text}
+                  </p>
                 </Reveal>
               );
             })}
           </div>
         </div>
 
-        <p className="mt-12 text-center font-display text-xl tracking-tight text-white">
+        <p className="mt-14 text-center font-display text-xl uppercase tracking-[0.12em] text-white">
           Only the best advance.
         </p>
       </div>

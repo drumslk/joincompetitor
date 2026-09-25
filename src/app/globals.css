@@ -62,7 +62,7 @@
   --secondary: #18181b;
   --secondary-foreground: #f4f4f5;
   --muted: #161618;
-  --muted-foreground: #a1a1aa;
+  --muted-foreground: #c5c5cd;
   --accent: #1c1c20;
   --accent-foreground: #f4f4f5;
   --destructive: #e11d2b;
@@ -89,7 +89,7 @@
     @apply border-border outline-ring/50;
   }
   html {
-    @apply font-sans scroll-smooth;
+    @apply font-sans scroll-smooth scroll-pt-[4.75rem];
   }
   body {
     @apply bg-background text-foreground antialiased;

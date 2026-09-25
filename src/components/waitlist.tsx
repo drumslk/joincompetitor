@@ -32,21 +32,30 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export function WaitlistProvider({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = React.useState(false);
   const [email, setEmail] = React.useState("");
+  const [consent, setConsent] = React.useState(false);
   const [status, setStatus] = React.useState<"idle" | "loading" | "done">("idle");
   const [celebrate, setCelebrate] = React.useState(0);
 
   const open = React.useCallback(() => {
     setStatus("idle");
     setEmail("");
+    setConsent(false);
     setIsOpen(true);
   }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    // Guard against accidental double submits while a request is in flight.
+    if (status === "loading") return;
     const value = email.trim();
 
     if (!EMAIL_RE.test(value)) {
       toast.error("Please enter a valid email address.");
+      return;
+    }
+
+    if (!consent) {
+      toast.error("Please accept receiving COMPETITOR updates to continue.");
       return;
     }
 
@@ -92,11 +101,11 @@ export function WaitlistProvider({ children }: { children: React.ReactNode }) {
               <Trophy className="size-6 text-primary" />
             </div>
             <DialogTitle className="font-display text-2xl tracking-tight">
-              Join the Waitlist
+              Reserve Your Place in Season 1
             </DialogTitle>
             <DialogDescription className="text-muted-foreground">
-              Become a Founding Competitor. Get early access, an exclusive badge
-              and priority registration for Season 1.
+              Season 1 starts {EVENT_LABEL}. Registration and participation are
+              free.
             </DialogDescription>
           </DialogHeader>
 
@@ -105,32 +114,58 @@ export function WaitlistProvider({ children }: { children: React.ReactNode }) {
               <div className="flex size-14 items-center justify-center rounded-full bg-primary text-primary-foreground">
                 <Trophy className="size-7" />
               </div>
-              <p className="font-display text-2xl tracking-tight">You&apos;re in!</p>
+              <p className="font-display text-2xl tracking-tight">You&apos;re in.</p>
               <p className="max-w-xs text-sm text-muted-foreground">
-                We&apos;ll email you when Season 1 opens. Beat. Compete. Repeat.
+                Welcome to the first generation of COMPETITOR. Check your inbox
+                for the next steps.
               </p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="mt-2 flex flex-col gap-3">
-              <Input
-                type="email"
-                inputMode="email"
-                autoFocus
-                required
-                placeholder="you@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                disabled={status === "loading"}
-                className="h-12 border-white/15 bg-white/5 text-base"
-              />
+            <form onSubmit={handleSubmit} className="mt-2 flex flex-col gap-4">
+              <div className="flex flex-col gap-1.5">
+                <label
+                  htmlFor="waitlist-email"
+                  className="text-xs font-medium uppercase tracking-wide text-zinc-400"
+                >
+                  Email Address
+                </label>
+                <Input
+                  id="waitlist-email"
+                  type="email"
+                  inputMode="email"
+                  autoFocus
+                  required
+                  placeholder="you@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={status === "loading"}
+                  className="h-12 border-white/15 bg-white/5 text-base"
+                />
+              </div>
+
+              <label className="flex cursor-pointer items-start gap-3 text-left text-xs leading-relaxed text-zinc-400">
+                <input
+                  type="checkbox"
+                  required
+                  checked={consent}
+                  onChange={(e) => setConsent(e.target.checked)}
+                  disabled={status === "loading"}
+                  className="mt-0.5 size-4 shrink-0 cursor-pointer accent-primary"
+                />
+                <span>
+                  I agree to receive COMPETITOR news, Season 1 information and
+                  launch updates. I can unsubscribe at any time.
+                </span>
+              </label>
+
               <button
                 type="submit"
-                disabled={status === "loading"}
+                disabled={status === "loading" || !consent}
                 className={cn(
                   "flex h-12 items-center justify-center gap-2 rounded-md bg-primary",
                   "font-display text-lg tracking-wide text-primary-foreground",
                   "transition-all hover:bg-primary/90 hover:shadow-[0_0_30px_-6px] hover:shadow-primary",
-                  "disabled:opacity-70",
+                  "disabled:cursor-not-allowed disabled:opacity-60",
                 )}
               >
                 {status === "loading" ? (
@@ -139,12 +174,9 @@ export function WaitlistProvider({ children }: { children: React.ReactNode }) {
                     Joining…
                   </>
                 ) : (
-                  "Join the Waitlist"
+                  "Join Season 1 for Free"
                 )}
               </button>
-              <p className="text-center text-xs text-muted-foreground">
-                Next event · {EVENT_LABEL} · No spam, unsubscribe anytime.
-              </p>
             </form>
           )}
         </DialogContent>

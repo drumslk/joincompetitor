@@ -3,8 +3,19 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-// Baseline so the social proof never reads as empty during early signups.
-const BASELINE = 1200;
+// Simulated social-proof baseline: starts at START_COUNT on LAUNCH_DATE and
+// grows by STEP every STEP_DAYS days, so the number keeps ticking up over time.
+// Real signups from the API are added on top of this baseline.
+const LAUNCH_DATE = new Date("2026-09-25T00:00:00Z");
+const START_COUNT = 100;
+const STEP = 15;
+const STEP_DAYS = 2;
+
+function simulatedBaseline() {
+  const days = Math.floor((Date.now() - LAUNCH_DATE.getTime()) / 86_400_000);
+  if (days < 0) return START_COUNT;
+  return START_COUNT + STEP * Math.floor(days / STEP_DAYS);
+}
 
 /**
  * Fetches the live waitlist count and counts up to it the first time the
@@ -21,10 +32,10 @@ export function WaitlistCount({ className }: { className?: string }) {
     fetch("/api/waitlist")
       .then((r) => r.json())
       .then((d) => {
-        if (active) setTarget(BASELINE + (Number(d?.count) || 0));
+        if (active) setTarget(simulatedBaseline() + (Number(d?.count) || 0));
       })
       .catch(() => {
-        if (active) setTarget(BASELINE);
+        if (active) setTarget(simulatedBaseline());
       });
     return () => {
       active = false;
@@ -83,7 +94,7 @@ export function WaitlistCount({ className }: { className?: string }) {
       <span className="font-display text-lg tabular-nums tracking-wide text-white">
         {display.toLocaleString("en-US")}+
       </span>
-      <span className="text-sm text-zinc-400">athletes already in</span>
+      <span className="text-sm text-zinc-300">athletes already in</span>
     </div>
   );
 }

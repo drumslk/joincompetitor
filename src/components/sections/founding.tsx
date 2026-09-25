@@ -5,23 +5,28 @@ import { Countdown } from "@/components/fx/countdown";
 import { WorldArcs } from "@/components/fx/world-arcs";
 
 const PERKS = [
-  "Be one of the first athletes to join.",
-  "Early access to the app.",
-  "Exclusive Founding Competitor badge.",
-  "Priority registration for Season 1.",
+  "Early access to the COMPETITOR app",
+  "Founding Competitor status",
+  "Season 1 registration",
+  "Pre-season news and challenge announcements",
 ];
 
 export function Founding() {
   return (
-    <section className="border-t border-white/5 py-20">
+    <section className="border-t border-white/5 py-16 sm:py-20">
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:gap-8 lg:px-8">
         {/* Left: copy + CTA */}
         <Reveal>
           <h2 className="font-display text-4xl leading-[0.95] text-white sm:text-5xl">
             Become a
             <br />
-            Founding Competitor
+            Founding Competitor.
           </h2>
+
+          <p className="mt-5 max-w-md text-base leading-relaxed text-zinc-300">
+            Join before the official launch of Season 1 and become part of the
+            first generation of COMPETITOR athletes.
+          </p>
 
           <ul className="mt-8 space-y-4">
             {PERKS.map((perk, i) => (
@@ -36,7 +41,7 @@ export function Founding() {
 
           <div className="mt-10 flex flex-col items-start gap-4">
             <WaitlistButton size="lg" className="w-full max-w-sm">
-              Join the Waitlist
+              Join Season 1 for Free
             </WaitlistButton>
             <Countdown className="items-start" />
           </div>
