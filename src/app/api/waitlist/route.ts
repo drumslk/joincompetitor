@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { sendWelcomeEmail } from "@/lib/email";
 
 // Keep this route on the Node.js runtime — better-sqlite3 is native.
 export const runtime = "nodejs";
@@ -56,14 +57,18 @@ export async function POST(request: Request) {
       .prepare("INSERT INTO waitlist (email) VALUES (?)")
       .run(normalized);
 
-    // New signup -> notify Make.com. Awaited so it isn't cut off when the
-    // response returns, but never blocks success on the webhook's outcome.
-    await notifyWebhook({
-      email: normalized,
-      id: Number(result.lastInsertRowid),
-      source: "waitlist",
-      createdAt: new Date().toISOString(),
-    });
+    // New signup -> send the confirmation email and notify Make.com. Both are
+    // awaited so they aren't cut off when the response returns, but neither can
+    // fail the signup (each swallows its own errors).
+    await Promise.allSettled([
+      sendWelcomeEmail(normalized),
+      notifyWebhook({
+        email: normalized,
+        id: Number(result.lastInsertRowid),
+        source: "waitlist",
+        createdAt: new Date().toISOString(),
+      }),
+    ]);
 
     return NextResponse.json(
       { ok: true, id: result.lastInsertRowid },
