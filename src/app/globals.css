@@ -121,10 +121,10 @@
 
   /* "Shooting star" that travels the Road to the Finals timeline */
   .shoot-x {
-    animation: shoot-x 4.5s linear infinite;
+    animation: shoot-x 3.5s linear infinite;
   }
   .shoot-y {
-    animation: shoot-y 4.5s linear infinite;
+    animation: shoot-y 3.5s linear infinite;
   }
 
   /* ---- Scroll reveal ---- */
