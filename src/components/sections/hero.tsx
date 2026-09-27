@@ -71,7 +71,8 @@ export function Hero() {
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
+          poster="/hero-poster.jpg"
           style={{ transform: `translateY(${scrollY * 0.2}px) scale(1.06)` }}
         >
           <source src="/hero.mp4" type="video/mp4" />
