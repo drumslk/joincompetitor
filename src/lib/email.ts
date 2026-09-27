@@ -6,13 +6,16 @@
 //                    Defaults to Resend's test sender, which only delivers to
 //                    your own account email until you verify a domain.
 
+import { unsubscribeUrl, unsubscribeApiUrl } from "./unsubscribe";
+
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
 const RESEND_FROM =
   process.env.RESEND_FROM ?? "COMPETITOR <onboarding@resend.dev>";
 
 const SUBJECT = "You're in — welcome to COMPETITOR 🏆";
 
-const TEXT = `Welcome, Competitor.
+function text(to: string): string {
+  return `Welcome, Competitor.
 
 You've reserved your place for Season 1 of COMPETITOR — the fitness league for everyone. You're in.
 
@@ -26,9 +29,11 @@ We'll email you before launch with early access and how to get ready.
 Beat. Compete. Repeat.
 — The COMPETITOR Team
 
-You're receiving this because you signed up at joincompetitor.com. You can unsubscribe at any time.`;
+You're receiving this because you signed up at joincompetitor.com.
+Unsubscribe: ${unsubscribeUrl(to)}`;
+}
 
-function html(): string {
+function html(to: string): string {
   return `<!doctype html>
 <html lang="en">
 <body style="margin:0;padding:0;background:#050505;">
@@ -69,7 +74,7 @@ function html(): string {
         </td></tr>
         <tr><td style="padding:18px 36px;border-top:1px solid rgba(255,255,255,0.08);">
           <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.5;color:#71717a;">
-            You're receiving this because you signed up at joincompetitor.com. You can unsubscribe at any time.
+            You're receiving this because you signed up at joincompetitor.com. <a href="${unsubscribeUrl(to)}" style="color:#a1a1aa;text-decoration:underline;">Unsubscribe</a> at any time.
           </p>
         </td></tr>
       </table>
@@ -101,8 +106,12 @@ export async function sendWelcomeEmail(to: string): Promise<void> {
         from: RESEND_FROM,
         to,
         subject: SUBJECT,
-        html: html(),
-        text: TEXT,
+        html: html(to),
+        text: text(to),
+        headers: {
+          "List-Unsubscribe": `<${unsubscribeApiUrl(to)}>, <mailto:hello@joincompetitor.com?subject=unsubscribe>`,
+          "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+        },
       }),
       signal: controller.signal,
     });
