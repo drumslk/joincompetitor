@@ -1,9 +1,7 @@
-"use client";
-
-import * as React from "react";
 import { TrendingUp, TrendingDown, Minus } from "lucide-react";
 import { SectionHeading } from "./section-heading";
 import { Reveal } from "@/components/fx/reveal";
+import { EVENT_LABEL } from "@/lib/event";
 import { cn } from "@/lib/utils";
 
 type Row = {
@@ -14,7 +12,9 @@ type Row = {
   trend: "up" | "down" | "flat";
 };
 
-const ATHLETES: Row[] = [
+// Illustrative sample ONLY — these are not real competitors or official
+// results. Data is fixed (no live updates) and sorted highest → lowest.
+const DEMO_ATHLETES: Row[] = [
   { name: "Marcus Vale", flag: "🇺🇸", country: "USA", score: 9824, trend: "up" },
   { name: "Léa Rousseau", flag: "🇫🇷", country: "FRA", score: 9710, trend: "up" },
   { name: "Rafael Costa", flag: "🇧🇷", country: "BRA", score: 9655, trend: "down" },
@@ -25,24 +25,17 @@ const ATHLETES: Row[] = [
   { name: "Owen Clarke", flag: "🇬🇧", country: "GBR", score: 9310, trend: "up" },
 ];
 
+// Fixed demonstration rows, capped at 8 and sorted highest → lowest.
+const ATHLETES = [...DEMO_ATHLETES].slice(0, 8).sort((a, b) => b.score - a.score);
+
 const TREND = {
   up: { Icon: TrendingUp, cls: "text-emerald-400" },
   down: { Icon: TrendingDown, cls: "text-primary" },
   flat: { Icon: Minus, cls: "text-zinc-400" },
 } as const;
 
-function LiveRow({ row, rank }: { row: Row; rank: number }) {
+function LeaderRow({ row, rank }: { row: Row; rank: number }) {
   const { Icon, cls } = TREND[row.trend];
-  const [score, setScore] = React.useState(row.score);
-
-  // Gently fluctuate the score so the board feels live.
-  React.useEffect(() => {
-    const id = setInterval(
-      () => setScore((s) => s + Math.round((Math.sin(s) + 1) * 3)),
-      2200 + rank * 130,
-    );
-    return () => clearInterval(id);
-  }, [rank]);
 
   return (
     <div className="flex items-center gap-2.5 rounded-lg bg-white/[0.03] px-3 py-3 ring-1 ring-white/5 transition-colors hover:bg-white/[0.06] sm:gap-4 sm:px-4">
@@ -60,7 +53,7 @@ function LiveRow({ row, rank }: { row: Row; rank: number }) {
         {row.country}
       </span>
       <span className="w-16 text-right font-display text-base tabular-nums not-italic text-white sm:w-20 sm:text-lg">
-        {score.toLocaleString("en-US")}
+        {row.score.toLocaleString("en-US")}
       </span>
       <Icon className={cn("size-4 shrink-0", cls)} strokeWidth={2.2} />
     </div>
@@ -72,20 +65,16 @@ export function Leaderboard() {
     <section id="leaderboard" className="border-t border-white/5 py-16 sm:py-20">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <Reveal>
-          <SectionHeading>Global Rankings</SectionHeading>
-          <p className="mt-4 text-center text-sm text-zinc-300">
-            <span className="relative mr-2 inline-flex size-2 align-middle">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex size-2 rounded-full bg-emerald-400" />
-            </span>
-            Live preview — the world is already warming up.
+          <SectionHeading>Season 1 Leaderboard Preview</SectionHeading>
+          <p className="mx-auto mt-4 max-w-xl text-center text-sm text-zinc-300">
+            Demonstration only. Official Season 1 rankings begin {EVENT_LABEL}.
           </p>
         </Reveal>
 
         <div className="mt-10 space-y-2">
           {ATHLETES.map((row, i) => (
             <Reveal key={row.name} delay={i * 70}>
-              <LiveRow row={row} rank={i + 1} />
+              <LeaderRow row={row} rank={i + 1} />
             </Reveal>
           ))}
         </div>
