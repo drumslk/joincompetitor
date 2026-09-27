@@ -6,7 +6,7 @@
 //                    Defaults to Resend's test sender, which only delivers to
 //                    your own account email until you verify a domain.
 
-import { unsubscribeUrl, unsubscribeApiUrl } from "./unsubscribe";
+import { unsubscribeUrl, unsubscribeApiUrl, baseUrl } from "./unsubscribe";
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
 const RESEND_FROM =
@@ -41,13 +41,8 @@ function html(to: string): string {
     <tr><td align="center">
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;background:#0e0e10;border:1px solid rgba(255,255,255,0.08);border-radius:14px;overflow:hidden;">
         <tr><td style="height:4px;background:linear-gradient(90deg,transparent,#e11d2b,transparent);"></td></tr>
-        <tr><td style="padding:36px 36px 8px;text-align:center;">
-          <div style="font-family:Arial,Helvetica,sans-serif;font-weight:800;font-style:italic;letter-spacing:1px;font-size:30px;color:#ffffff;">
-            COMPET<span style="color:#e11d2b;">I</span>TOR
-          </div>
-          <div style="font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:4px;color:#e11d2b;margin-top:6px;">
-            BEAT. COMPETE. REPEAT.
-          </div>
+        <tr><td style="padding:28px 36px 8px;text-align:center;">
+          <img src="${baseUrl()}/competitor-logo.png" width="180" alt="COMPETITOR — Beat. Compete. Repeat." style="display:inline-block;width:180px;max-width:62%;height:auto;border:0;outline:none;text-decoration:none;" />
         </td></tr>
         <tr><td style="padding:24px 36px 0;">
           <h1 style="margin:0 0 6px;font-family:Arial,Helvetica,sans-serif;font-weight:800;font-style:italic;text-transform:uppercase;font-size:26px;color:#ffffff;">You're in.</h1>
