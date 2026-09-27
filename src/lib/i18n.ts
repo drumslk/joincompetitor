@@ -86,7 +86,7 @@ export const dict = {
       ],
       freeLead: "Season 1 is",
       freeHighlight: "free to enter",
-      freeSub: "No entry fee. No subscription required. No pay-to-rank advantage.",
+      freeSub: "No entry fee. No subscription required.",
     },
     leaderboard: {
       title: "Season 1 Leaderboard Preview",
