@@ -47,8 +47,8 @@ export const dict = {
           text: "A strength, bodyweight, endurance or speed challenge is released every week.",
         },
         {
-          title: "Complete It Anywhere",
-          text: "Perform the challenge from your gym, home or outdoors, depending on the equipment required.",
+          title: "Perform It Anywhere",
+          text: "Do the challenge from your gym, home or outdoors.",
         },
         {
           title: "Submit Your Performance",
