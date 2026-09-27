@@ -247,7 +247,7 @@ export const dict = {
         { title: "Endurance", items: ["Suspension", "Gainage", "Chaise"] },
         { title: "Vitesse", items: ["Sprint sur tapis"] },
       ],
-      bottom: "Des défis variés. Une seule ligue de fitness complète.",
+      bottom: "Des défis variés. Une seule ligue de fitness.",
     },
     levels: {
       title: "Conçu pour tous les niveaux.",
