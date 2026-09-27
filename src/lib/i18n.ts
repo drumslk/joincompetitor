@@ -263,7 +263,7 @@ export const dict = {
       ],
       freeLead: "La Saison 1 est",
       freeHighlight: "gratuite",
-      freeSub: "Aucun frais d'inscription. Aucun abonnement. Aucun avantage payant au classement.",
+      freeSub: "Aucun frais d'inscription. Aucun abonnement.",
     },
     leaderboard: {
       title: "Aperçu du classement Saison 1",
