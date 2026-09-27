@@ -205,7 +205,7 @@ export const dict = {
       seconds: "Secondes",
     },
     hero: {
-      eyebrow: "Le monde entier concourt ici.",
+      eyebrow: "Le monde entier entre en compétition ici.",
       titleA: "La ligue de fitness",
       titleB: "pour tous.",
       subtitle: "Un défi. Un score. Un classement mondial.",
@@ -229,10 +229,10 @@ export const dict = {
         },
         {
           title: "Soumets ta performance",
-          text: "Saisis ton score et envoie une vidéo-preuve en continu via l'app COMPETITOR.",
+          text: "Saisis ton score et envoie une vidéo de ta performance, filmée en continu via l'app COMPETITOR.",
         },
         {
-          title: "Gagne des points & grimpe",
+          title: "Gagne des points et progresse au classement",
           text: "Une fois validée, ta performance rapporte des points au classement officiel de la Saison 1.",
         },
       ],
@@ -244,7 +244,7 @@ export const dict = {
       cards: [
         { title: "Force", items: ["Développé couché", "Squat", "Soulevé de terre (classique ou trap bar)"] },
         { title: "Poids du corps", items: ["Pompes", "Tractions", "Burpees"] },
-        { title: "Endurance", items: ["Suspension à la barre", "Gainage", "Chaise"] },
+        { title: "Endurance", items: ["Suspension à la barre", "Gainage", "Chaise contre un mur"] },
         { title: "Vitesse", items: ["Sprint sur tapis"] },
       ],
       bottom: "Des défis variés. Une seule ligue de fitness.",
@@ -298,12 +298,12 @@ export const dict = {
     },
     founding: {
       titleA: "Deviens",
-      titleB: "Compétiteur fondateur.",
+      titleB: "un Compétiteur de la première heure.",
       intro:
         "Rejoins-nous avant le lancement officiel de la Saison 1 et fais partie de la première génération d'athlètes COMPETITOR.",
       perks: [
         "Accès anticipé à l'app COMPETITOR",
-        "Statut de Compétiteur fondateur",
+        "Statut de Compétiteur de la première heure",
         "Inscription à la Saison 1",
         "Actus pré-saison et annonces des défis",
       ],
@@ -330,7 +330,7 @@ export const dict = {
         },
         {
           q: "Comment soumettre ma performance ?",
-          a: "Saisis ton score et envoie une vidéo-preuve en continu via l'app COMPETITOR. Chaque défi comporte des règles précises et un angle de caméra imposé.",
+          a: "Saisis ton score et envoie une vidéo de ta performance, filmée en continu via l'app COMPETITOR. Chaque défi comporte des règles précises et un angle de caméra imposé.",
         },
       ],
     },
@@ -354,7 +354,7 @@ export const dict = {
       errInvalid: "Merci d'entrer une adresse email valide.",
       errConsent: "Merci d'accepter de recevoir les nouveautés COMPETITOR pour continuer.",
       errGeneric: "Une erreur est survenue.",
-      toastDone: "Tu es inscrit ! Bienvenue, Compétiteur fondateur.",
+      toastDone: "Tu es inscrit ! Bienvenue, Compétiteur de la première heure.",
       toastAlready: "Tu es déjà inscrit — à bientôt en Saison 1 !",
     },
   },
