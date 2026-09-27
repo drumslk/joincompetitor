@@ -7,14 +7,14 @@ export const runtime = "nodejs";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// Make.com webhook fired on each *new* waitlist signup.
-// Override in production via WAITLIST_WEBHOOK_URL if needed.
-const WEBHOOK_URL =
-  process.env.WAITLIST_WEBHOOK_URL ??
-  "https://hook.eu1.make.com/rg8j99rxiqct550kwa8f69fwblkvaegd";
+// Optional signup webhook. Disabled by default — only fires when
+// WAITLIST_WEBHOOK_URL is explicitly set (no third party is notified otherwise).
+const WEBHOOK_URL = process.env.WAITLIST_WEBHOOK_URL;
 
-// Notify the webhook without ever failing the signup itself.
+// Notify the webhook without ever failing the signup itself. No-op unless a
+// WAITLIST_WEBHOOK_URL is configured.
 async function notifyWebhook(payload: Record<string, unknown>) {
+  if (!WEBHOOK_URL) return;
   try {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 5000);
