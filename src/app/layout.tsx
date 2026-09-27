@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Inter, Saira_Condensed } from "next/font/google";
 import "./globals.css";
 import { WaitlistProvider } from "@/components/waitlist";
@@ -51,14 +52,19 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // The <html> lives only in this shared root layout, so derive the page
+  // language from the request path (set by middleware): /fr -> "fr".
+  const pathname = (await headers()).get("x-pathname") ?? "";
+  const lang = pathname.startsWith("/fr") ? "fr" : "en";
+
   return (
     <html
-      lang="en"
+      lang={lang}
       className={`${inter.variable} ${saira.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
