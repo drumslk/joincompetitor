@@ -50,7 +50,13 @@ export function Challenges({ lang = "en" }: { lang?: Lang }) {
                       src={image}
                       alt={card.title}
                       loading={i < 2 ? "eager" : "lazy"}
-                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      className={
+                        i === 2
+                          ? // Endurance: raise the framing so the plank athlete
+                            // sits above the text overlay (bottom-anchored zoom).
+                            "absolute inset-x-0 bottom-0 h-[130%] w-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
+                          : "absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      }
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/20" />
 
