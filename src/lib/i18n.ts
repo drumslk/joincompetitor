@@ -232,7 +232,7 @@ export const dict = {
           text: "Saisis ton score et envoie une vidéo de ta performance, filmée en continu via l'app COMPETITOR.",
         },
         {
-          title: "Gagne des points et progresse au classement",
+          title: "Gagne des points et grimpe au classement",
           text: "Une fois validée, ta performance rapporte des points au classement officiel de la Saison 1.",
         },
       ],
