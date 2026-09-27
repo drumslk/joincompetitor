@@ -75,7 +75,7 @@ export const dict = {
     levels: {
       title: "Built for Every Level.",
       intro:
-        "You don't need to be an athlete to become a Competitor. Measure yourself against athletes in your division while remaining part of one global fitness league.",
+        "You don't need to be an athlete to become a Competitor. Challenge yourself against others in your division, all within a single global fitness league.",
       divisions: [
         "Men & Women",
         "Age Divisions",
