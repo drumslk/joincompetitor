@@ -151,7 +151,7 @@ export function Hero() {
                   <span className="absolute inline-flex size-full animate-ping rounded-full bg-primary opacity-75" />
                   <span className="relative inline-flex size-2 rounded-full bg-primary" />
                 </span>
-                Season 1 · Jan–Apr 2027 · Free to Compete
+                Season 1 · Starts Jan 2027 · Free to Compete
               </span>
             </div>
 
