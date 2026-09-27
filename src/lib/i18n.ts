@@ -117,7 +117,7 @@ export const dict = {
           text: "The best competitors compete for the first COMPETITOR titles.",
         },
       ],
-      bottom: "Only the best advance.",
+      bottom: "Only the best make it through.",
     },
     founding: {
       titleA: "Become a",
