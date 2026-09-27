@@ -6,10 +6,10 @@ import { cn } from "@/lib/utils";
 // Simulated social-proof baseline: starts at START_COUNT on LAUNCH_DATE and
 // grows by STEP every STEP_DAYS days, so the number keeps ticking up over time.
 // Real signups from the API are added on top of this baseline.
-const LAUNCH_DATE = new Date("2026-09-25T00:00:00Z");
-const START_COUNT = 100;
-const STEP = 15;
-const STEP_DAYS = 2;
+const LAUNCH_DATE = new Date("2026-09-27T00:00:00Z");
+const START_COUNT = 115;
+const STEP = 3;
+const STEP_DAYS = 1;
 
 function simulatedBaseline() {
   const days = Math.floor((Date.now() - LAUNCH_DATE.getTime()) / 86_400_000);
