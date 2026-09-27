@@ -55,7 +55,7 @@ export const dict = {
           text: "Enter your score and upload one continuous proof video through the COMPETITOR app.",
         },
         {
-          title: "Earn Points & Climb",
+          title: "Earn Points & Level Up",
           text: "Once validated, your performance earns points toward the official Season 1 rankings.",
         },
       ],
