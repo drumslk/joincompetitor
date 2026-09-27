@@ -244,7 +244,7 @@ export const dict = {
       cards: [
         { title: "Force", items: ["Développé couché", "Squat", "Soulevé de terre (classique ou trap bar)"] },
         { title: "Poids du corps", items: ["Pompes", "Tractions", "Burpees"] },
-        { title: "Endurance", items: ["Suspension", "Gainage", "Chaise"] },
+        { title: "Endurance", items: ["Suspension à la barre", "Gainage", "Chaise"] },
         { title: "Vitesse", items: ["Sprint sur tapis"] },
       ],
       bottom: "Des défis variés. Une seule ligue de fitness.",
