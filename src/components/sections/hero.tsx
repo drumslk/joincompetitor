@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { ChevronRight, ArrowRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { WaitlistButton } from "@/components/waitlist";
 import { WaitlistCount } from "@/components/fx/waitlist-count";
 import { Countdown } from "@/components/fx/countdown";
@@ -156,21 +156,11 @@ export function Hero() {
               </span>
             </div>
 
-            {/* Buttons */}
-            <div
-              className="hero-rise mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4"
-              style={{ animationDelay: "0.72s" }}
-            >
+            {/* Primary CTA */}
+            <div className="hero-rise mt-8" style={{ animationDelay: "0.72s" }}>
               <WaitlistButton size="lg" className="w-full sm:w-auto">
                 Join Season 1 for Free
               </WaitlistButton>
-              <a
-                href="#how-it-works"
-                className="inline-flex h-14 w-full items-center justify-center gap-2 rounded-md border border-white/25 px-8 font-display text-lg tracking-wide text-white transition-colors hover:border-white/50 hover:bg-white/10 sm:w-auto"
-              >
-                See How It Works
-                <ArrowRight className="size-5" />
-              </a>
             </div>
 
             {/* Social proof */}
