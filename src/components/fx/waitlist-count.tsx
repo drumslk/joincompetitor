@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
+import { getDict, type Lang } from "@/lib/i18n";
 
 // Simulated social-proof baseline: starts at START_COUNT on LAUNCH_DATE and
 // grows by STEP every STEP_DAYS days, so the number keeps ticking up over time.
@@ -21,7 +22,13 @@ function simulatedBaseline() {
  * Fetches the live waitlist count and counts up to it the first time the
  * widget scrolls into view. Adds a baseline so the number always feels alive.
  */
-export function WaitlistCount({ className }: { className?: string }) {
+export function WaitlistCount({
+  className,
+  lang = "en",
+}: {
+  className?: string;
+  lang?: Lang;
+}) {
   const ref = React.useRef<HTMLDivElement>(null);
   const [target, setTarget] = React.useState<number | null>(null);
   const [display, setDisplay] = React.useState(0);
@@ -92,9 +99,9 @@ export function WaitlistCount({ className }: { className?: string }) {
         <span className="relative inline-flex size-2 rounded-full bg-primary" />
       </span>
       <span className="font-display text-lg tabular-nums tracking-wide text-white">
-        {display.toLocaleString("en-US")}+
+        {display.toLocaleString(lang === "fr" ? "fr-FR" : "en-US")}+
       </span>
-      <span className="text-sm text-zinc-300">athletes already in</span>
+      <span className="text-sm text-zinc-300">{getDict(lang).hero.athletes}</span>
     </div>
   );
 }

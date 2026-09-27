@@ -24,7 +24,10 @@ export const metadata: Metadata = {
   title: "COMPETITOR — The Fitness League for Everyone",
   description:
     "COMPETITOR is the fitness league for everyone. Complete weekly challenges from anywhere, submit your performance, earn points and climb the global rankings. Season 1 starts January 1, 2027 — free to enter.",
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+    languages: { en: "/", fr: "/fr" },
+  },
   openGraph: {
     type: "website",
     url: "/",

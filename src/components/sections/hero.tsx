@@ -5,21 +5,23 @@ import { ChevronRight } from "lucide-react";
 import { WaitlistButton } from "@/components/waitlist";
 import { WaitlistCount } from "@/components/fx/waitlist-count";
 import { Countdown } from "@/components/fx/countdown";
+import { getDict, type Lang } from "@/lib/i18n";
 
 const FLAGS = [
-  { flag: "🇺🇸", label: "United States" },
-  { flag: "🇧🇷", label: "Brazil" },
-  { flag: "🇦🇺", label: "Australia" },
-  { flag: "🇫🇷", label: "France" },
-  { flag: "🇲🇺", label: "Mauritius" },
-  { flag: "🇬🇧", label: "United Kingdom" },
-  { flag: "🇩🇪", label: "Germany" },
-  { flag: "🇯🇵", label: "Japan" },
-  { flag: "🇿🇦", label: "South Africa" },
-  { flag: "🇨🇦", label: "Canada" },
+  { flag: "🇺🇸", en: "United States", fr: "États-Unis" },
+  { flag: "🇧🇷", en: "Brazil", fr: "Brésil" },
+  { flag: "🇦🇺", en: "Australia", fr: "Australie" },
+  { flag: "🇫🇷", en: "France", fr: "France" },
+  { flag: "🇲🇺", en: "Mauritius", fr: "Maurice" },
+  { flag: "🇬🇧", en: "United Kingdom", fr: "Royaume-Uni" },
+  { flag: "🇩🇪", en: "Germany", fr: "Allemagne" },
+  { flag: "🇯🇵", en: "Japan", fr: "Japon" },
+  { flag: "🇿🇦", en: "South Africa", fr: "Afrique du Sud" },
+  { flag: "🇨🇦", en: "Canada", fr: "Canada" },
 ];
 
-export function Hero() {
+export function Hero({ lang = "en" }: { lang?: Lang }) {
+  const t = getDict(lang);
   const videoRef = React.useRef<HTMLVideoElement>(null);
   const mediaRef = React.useRef<HTMLDivElement>(null);
   const [scrollY, setScrollY] = React.useState(0);
@@ -109,7 +111,7 @@ export function Hero() {
               style={{ animationDelay: "0.03s" }}
             >
               <span className="h-px w-8 bg-primary" />
-              The World Competes Here.
+              {t.hero.eyebrow}
             </p>
 
             {/* Main title */}
@@ -117,10 +119,10 @@ export function Hero() {
               className="hero-glow mt-5 font-display text-5xl leading-[0.92] text-white text-shadow-hero sm:text-6xl lg:text-7xl"
             >
               <span className="hero-rise block" style={{ animationDelay: "0.08s" }}>
-                The Fitness League
+                {t.hero.titleA}
               </span>
               <span className="hero-rise block" style={{ animationDelay: "0.2s" }}>
-                for Everyone.
+                {t.hero.titleB}
               </span>
             </h1>
 
@@ -129,7 +131,7 @@ export function Hero() {
               className="hero-rise mt-5 font-display text-xl uppercase tracking-tight text-primary sm:text-2xl"
               style={{ animationDelay: "0.34s" }}
             >
-              One Challenge. One Score. One Global Ranking.
+              {t.hero.subtitle}
             </p>
 
             {/* Description */}
@@ -137,9 +139,7 @@ export function Hero() {
               className="hero-rise mt-5 max-w-xl text-base leading-relaxed text-zinc-200 sm:text-lg"
               style={{ animationDelay: "0.48s" }}
             >
-              Every week, complete a new fitness challenge from your gym, home or
-              outdoors. Submit your score and video, earn points and climb the
-              global rankings.
+              {t.hero.description}
             </p>
 
             {/* Season 1 info badge */}
@@ -152,14 +152,14 @@ export function Hero() {
                   <span className="absolute inline-flex size-full animate-ping rounded-full bg-primary opacity-75" />
                   <span className="relative inline-flex size-2 rounded-full bg-primary" />
                 </span>
-                Season 1 · Starts Jan 2027 · Free to Compete
+                {t.hero.badge}
               </span>
             </div>
 
             {/* Primary CTA */}
             <div className="hero-rise mt-8" style={{ animationDelay: "0.72s" }}>
               <WaitlistButton size="lg" className="w-full sm:w-auto">
-                Join Season 1 for Free
+                {t.cta.full}
               </WaitlistButton>
             </div>
 
@@ -168,7 +168,7 @@ export function Hero() {
               className="hero-rise mt-8"
               style={{ animationDelay: "0.84s" }}
             >
-              <WaitlistCount />
+              <WaitlistCount lang={lang} />
             </div>
           </div>
         </div>
@@ -180,12 +180,12 @@ export function Hero() {
           <div className="flex w-max animate-[marquee_28s_linear_infinite] gap-x-8 group-hover:[animation-play-state:paused]">
             {[...FLAGS, ...FLAGS].map((c, i) => (
               <span
-                key={`${c.label}-${i}`}
+                key={`${c.en}-${i}`}
                 className="inline-flex shrink-0 items-center gap-2 text-sm"
               >
                 <span className="text-lg leading-none">{c.flag}</span>
                 <span className="font-display tracking-wide text-zinc-200">
-                  {c.label}
+                  {lang === "fr" ? c.fr : c.en}
                 </span>
                 <ChevronRight className="size-4 text-primary/60" />
               </span>
@@ -193,12 +193,12 @@ export function Hero() {
           </div>
         </div>
         <p className="mt-3 text-center text-xs uppercase tracking-[0.3em] text-zinc-400">
-          Athletes competing worldwide — and growing
+          {t.hero.flags}
         </p>
 
         {/* Main countdown to Season 1 */}
         <div className="mt-10 flex justify-center">
-          <Countdown />
+          <Countdown lang={lang} />
         </div>
       </div>
     </section>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Mail } from "lucide-react";
 import { LogoMark } from "@/components/logo";
+import { getDict, type Lang } from "@/lib/i18n";
 
 type IconProps = { className?: string };
 
@@ -28,8 +29,9 @@ const SOCIALS = [
   { label: "Email", href: "mailto:hello@joincompetitor.com", Icon: Mail },
 ];
 
-export function SiteFooter() {
+export function SiteFooter({ lang = "en" }: { lang?: Lang }) {
   const year = new Date().getFullYear();
+  const t = getDict(lang).footer;
 
   return (
     <footer className="relative overflow-hidden border-t border-white/10 bg-background py-16">
@@ -59,14 +61,14 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-12 flex w-full flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-xs text-zinc-400 sm:flex-row">
-          <p>© {year} Competitor Arena LLC. All rights reserved.</p>
+          <p>© {year} Competitor Arena LLC. {t.rights}</p>
           <div className="flex items-center gap-4">
             <Link href="/privacy" className="py-1 transition-colors hover:text-zinc-300">
-              Privacy Policy
+              {t.privacy}
             </Link>
             <span className="text-zinc-700">|</span>
             <Link href="/terms" className="py-1 transition-colors hover:text-zinc-300">
-              Terms of Use
+              {t.terms}
             </Link>
           </div>
         </div>

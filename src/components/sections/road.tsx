@@ -4,43 +4,13 @@ import * as React from "react";
 import { Rocket, CalendarDays, Trophy, Crown } from "lucide-react";
 import { SectionHeading } from "./section-heading";
 import { Reveal } from "@/components/fx/reveal";
+import { getDict, type Lang } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
-type Stop = {
-  icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
-  period: string;
-  label: string;
-  text: string;
-};
+const ICONS = [Rocket, CalendarDays, Trophy, Crown];
 
-const STOPS: Stop[] = [
-  {
-    icon: Rocket,
-    period: "Oct–Dec 2026",
-    label: "Pre-Season",
-    text: "Discover COMPETITOR through selected test events and early access.",
-  },
-  {
-    icon: CalendarDays,
-    period: "Jan–Apr 2027",
-    label: "Weekly Season Challenges",
-    text: "Complete the weekly challenges, earn points and climb the rankings.",
-  },
-  {
-    icon: Trophy,
-    period: "May 2027",
-    label: "Playoffs",
-    text: "The highest-ranked competitors advance to the Playoffs.",
-  },
-  {
-    icon: Crown,
-    period: "June 2027",
-    label: "Season 1 Online Finals",
-    text: "The best competitors compete for the first COMPETITOR titles.",
-  },
-];
-
-export function Road() {
+export function Road({ lang = "en" }: { lang?: Lang }) {
+  const t = getDict(lang).road;
   const trackRef = React.useRef<HTMLDivElement>(null);
   const [progress, setProgress] = React.useState(0);
 
@@ -71,7 +41,7 @@ export function Road() {
   return (
     <section id="road" className="border-t border-white/5 py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeading>The Road to the Finals</SectionHeading>
+        <SectionHeading>{t.title}</SectionHeading>
 
         <div ref={trackRef} className="relative mt-16">
           {/* A "shooting star" glides along the timeline (behind the nodes/text)
@@ -100,8 +70,9 @@ export function Road() {
           </div>
 
           <div className="relative flex flex-col items-stretch gap-12 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
-            {STOPS.map(({ icon: Icon, period, label, text }, i) => {
-              const active = progress >= i / (STOPS.length - 1) - 0.02;
+            {t.stops.map(({ period, label, text }, i) => {
+              const Icon = ICONS[i];
+              const active = progress >= i / (t.stops.length - 1) - 0.02;
               return (
                 <Reveal
                   key={period}
@@ -153,7 +124,7 @@ export function Road() {
         </div>
 
         <p className="mt-14 text-center font-display text-xl uppercase tracking-[0.12em] text-white">
-          Only the best advance.
+          {t.bottom}
         </p>
       </div>
     </section>

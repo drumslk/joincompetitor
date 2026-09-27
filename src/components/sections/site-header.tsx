@@ -3,20 +3,23 @@
 import * as React from "react";
 import { Menu, X } from "lucide-react";
 import { Logo } from "@/components/logo";
+import { LangSwitch } from "@/components/lang-switch";
 import { WaitlistButton, useWaitlist } from "@/components/waitlist";
+import { getDict, type Lang } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
-const NAV = [
-  { label: "How It Works", href: "#how-it-works" },
-  { label: "Challenges", href: "#challenges" },
-  { label: "Rankings", href: "#leaderboard" },
-  { label: "Season 1", href: "#road" },
-  { label: "FAQ", href: "#faq" },
-];
-
-export function SiteHeader() {
+export function SiteHeader({ lang = "en" }: { lang?: Lang }) {
   const [menuOpen, setMenuOpen] = React.useState(false);
   const { open } = useWaitlist();
+  const t = getDict(lang);
+
+  const NAV = [
+    { label: t.nav.how, href: "#how-it-works" },
+    { label: t.nav.challenges, href: "#challenges" },
+    { label: t.nav.rankings, href: "#leaderboard" },
+    { label: t.nav.season1, href: "#road" },
+    { label: t.nav.faq, href: "#faq" },
+  ];
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-background">
@@ -42,17 +45,18 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        {/* Desktop CTA */}
-        <div className="hidden shrink-0 lg:block">
+        {/* Desktop: language + CTA */}
+        <div className="hidden shrink-0 items-center gap-4 lg:flex">
+          <LangSwitch lang={lang} />
           <WaitlistButton size="sm" className="whitespace-nowrap">
-            Join Season 1 for Free
+            {t.cta.full}
           </WaitlistButton>
         </div>
 
         {/* Mobile: compact CTA + hamburger */}
         <div className="flex shrink-0 items-center gap-2 lg:hidden">
           <WaitlistButton size="sm" className="h-10 whitespace-nowrap px-3.5 text-xs">
-            Join Free
+            {t.cta.short}
           </WaitlistButton>
           <button
             type="button"
@@ -70,10 +74,13 @@ export function SiteHeader() {
       <div
         className={cn(
           "overflow-hidden border-t border-white/10 bg-background transition-[max-height] duration-300 lg:hidden",
-          menuOpen ? "max-h-96" : "max-h-0 border-t-0",
+          menuOpen ? "max-h-[26rem]" : "max-h-0 border-t-0",
         )}
       >
         <div className="flex flex-col gap-1 px-4 py-4">
+          <div className="mb-2 flex justify-center">
+            <LangSwitch lang={lang} />
+          </div>
           {NAV.map((item) => (
             <a
               key={item.href}
@@ -92,7 +99,7 @@ export function SiteHeader() {
             }}
             className="mt-2 flex h-12 items-center justify-center rounded-md bg-primary font-display text-lg tracking-wide text-primary-foreground"
           >
-            Join Season 1 for Free
+            {t.cta.full}
           </button>
         </div>
       </div>

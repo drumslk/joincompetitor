@@ -10,9 +10,10 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { usePathname } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Confetti } from "@/components/fx/confetti";
-import { EVENT_LABEL } from "@/lib/event";
+import { getDict } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 type WaitlistContextValue = {
@@ -36,6 +37,9 @@ export function WaitlistProvider({ children }: { children: React.ReactNode }) {
   const [status, setStatus] = React.useState<"idle" | "loading" | "done">("idle");
   const [celebrate, setCelebrate] = React.useState(0);
 
+  const pathname = usePathname();
+  const t = getDict(pathname?.startsWith("/fr") ? "fr" : "en").waitlist;
+
   const open = React.useCallback(() => {
     setStatus("idle");
     setEmail("");
@@ -50,12 +54,12 @@ export function WaitlistProvider({ children }: { children: React.ReactNode }) {
     const value = email.trim();
 
     if (!EMAIL_RE.test(value)) {
-      toast.error("Please enter a valid email address.");
+      toast.error(t.errInvalid);
       return;
     }
 
     if (!consent) {
-      toast.error("Please accept receiving COMPETITOR updates to continue.");
+      toast.error(t.errConsent);
       return;
     }
 
@@ -69,19 +73,19 @@ export function WaitlistProvider({ children }: { children: React.ReactNode }) {
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data?.error ?? "Something went wrong.");
+        throw new Error(data?.error ?? t.errGeneric);
       }
 
       setStatus("done");
       setCelebrate((n) => n + 1);
       if (data.alreadyJoined) {
-        toast.success("You're already on the list — see you in Season 1!");
+        toast.success(t.toastAlready);
       } else {
-        toast.success("You're in! Welcome, Founding Competitor.");
+        toast.success(t.toastDone);
       }
     } catch (err) {
       setStatus("idle");
-      toast.error(err instanceof Error ? err.message : "Something went wrong.");
+      toast.error(err instanceof Error ? err.message : t.errGeneric);
     }
   }
 
@@ -101,11 +105,10 @@ export function WaitlistProvider({ children }: { children: React.ReactNode }) {
               <Trophy className="size-6 text-primary" />
             </div>
             <DialogTitle className="font-display text-2xl tracking-tight">
-              Reserve Your Place in Season 1
+              {t.title}
             </DialogTitle>
             <DialogDescription className="text-muted-foreground">
-              Season 1 starts {EVENT_LABEL}. Registration and participation are
-              free.
+              {t.description}
             </DialogDescription>
           </DialogHeader>
 
@@ -114,10 +117,9 @@ export function WaitlistProvider({ children }: { children: React.ReactNode }) {
               <div className="flex size-14 items-center justify-center rounded-full bg-primary text-primary-foreground">
                 <Trophy className="size-7" />
               </div>
-              <p className="font-display text-2xl tracking-tight">You&apos;re in.</p>
+              <p className="font-display text-2xl tracking-tight">{t.successTitle}</p>
               <p className="max-w-xs text-sm text-muted-foreground">
-                Welcome to the first generation of COMPETITOR. Check your inbox
-                for the next steps.
+                {t.successBody}
               </p>
             </div>
           ) : (
@@ -127,7 +129,7 @@ export function WaitlistProvider({ children }: { children: React.ReactNode }) {
                   htmlFor="waitlist-email"
                   className="text-xs font-medium uppercase tracking-wide text-zinc-400"
                 >
-                  Email Address
+                  {t.emailLabel}
                 </label>
                 <Input
                   id="waitlist-email"
@@ -135,7 +137,7 @@ export function WaitlistProvider({ children }: { children: React.ReactNode }) {
                   inputMode="email"
                   autoFocus
                   required
-                  placeholder="you@example.com"
+                  placeholder={t.emailPlaceholder}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={status === "loading"}
@@ -152,10 +154,7 @@ export function WaitlistProvider({ children }: { children: React.ReactNode }) {
                   disabled={status === "loading"}
                   className="mt-0.5 size-4 shrink-0 cursor-pointer accent-primary"
                 />
-                <span>
-                  I agree to receive COMPETITOR news, Season 1 information and
-                  launch updates. I can unsubscribe at any time.
-                </span>
+                <span>{t.consent}</span>
               </label>
 
               <button
@@ -171,10 +170,10 @@ export function WaitlistProvider({ children }: { children: React.ReactNode }) {
                 {status === "loading" ? (
                   <>
                     <Loader2 className="size-5 animate-spin" />
-                    Joining…
+                    {t.joining}
                   </>
                 ) : (
-                  "Join Season 1 for Free"
+                  t.submit
                 )}
               </button>
             </form>

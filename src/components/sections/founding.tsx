@@ -3,33 +3,29 @@ import { WaitlistButton } from "@/components/waitlist";
 import { Reveal } from "@/components/fx/reveal";
 import { Countdown } from "@/components/fx/countdown";
 import { WorldArcs } from "@/components/fx/world-arcs";
+import { getDict, type Lang } from "@/lib/i18n";
 
-const PERKS = [
-  "Early access to the COMPETITOR app",
-  "Founding Competitor status",
-  "Season 1 registration",
-  "Pre-season news and challenge announcements",
-];
+export function Founding({ lang = "en" }: { lang?: Lang }) {
+  const g = getDict(lang);
+  const t = g.founding;
 
-export function Founding() {
   return (
     <section className="border-t border-white/5 py-16 sm:py-20">
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:gap-8 lg:px-8">
         {/* Left: copy + CTA */}
         <Reveal>
           <h2 className="font-display text-4xl leading-[0.95] text-white sm:text-5xl">
-            Become a
+            {t.titleA}
             <br />
-            Founding Competitor.
+            {t.titleB}
           </h2>
 
           <p className="mt-5 max-w-md text-base leading-relaxed text-zinc-300">
-            Join before the official launch of Season 1 and become part of the
-            first generation of COMPETITOR athletes.
+            {t.intro}
           </p>
 
           <ul className="mt-8 space-y-4">
-            {PERKS.map((perk, i) => (
+            {t.perks.map((perk, i) => (
               <Reveal key={perk} as="li" delay={120 + i * 90} className="flex items-start gap-3">
                 <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-sm bg-primary/15 ring-1 ring-primary/40">
                   <Check className="size-3.5 text-primary" strokeWidth={3} />
@@ -41,9 +37,9 @@ export function Founding() {
 
           <div className="mt-10 flex flex-col items-start gap-4">
             <WaitlistButton size="lg" className="w-full max-w-sm">
-              Join Season 1 for Free
+              {g.cta.full}
             </WaitlistButton>
-            <Countdown className="items-start" />
+            <Countdown className="items-start" lang={lang} />
           </div>
         </Reveal>
 

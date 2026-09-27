@@ -1,7 +1,7 @@
 import { TrendingUp, TrendingDown, Minus } from "lucide-react";
 import { SectionHeading } from "./section-heading";
 import { Reveal } from "@/components/fx/reveal";
-import { EVENT_LABEL } from "@/lib/event";
+import { getDict, type Lang } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 type Row = {
@@ -34,7 +34,7 @@ const TREND = {
   flat: { Icon: Minus, cls: "text-zinc-400" },
 } as const;
 
-function LeaderRow({ row, rank }: { row: Row; rank: number }) {
+function LeaderRow({ row, rank, lang }: { row: Row; rank: number; lang: Lang }) {
   const { Icon, cls } = TREND[row.trend];
 
   return (
@@ -53,34 +53,35 @@ function LeaderRow({ row, rank }: { row: Row; rank: number }) {
         {row.country}
       </span>
       <span className="w-16 text-right font-display text-base tabular-nums not-italic text-white sm:w-20 sm:text-lg">
-        {row.score.toLocaleString("en-US")}
+        {row.score.toLocaleString(lang === "fr" ? "fr-FR" : "en-US")}
       </span>
       <Icon className={cn("size-4 shrink-0", cls)} strokeWidth={2.2} />
     </div>
   );
 }
 
-export function Leaderboard() {
+export function Leaderboard({ lang = "en" }: { lang?: Lang }) {
+  const t = getDict(lang).leaderboard;
   return (
     <section id="leaderboard" className="border-t border-white/5 py-16 sm:py-20">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <Reveal>
-          <SectionHeading>Season 1 Leaderboard Preview</SectionHeading>
+          <SectionHeading>{t.title}</SectionHeading>
           <p className="mx-auto mt-4 max-w-xl text-center text-sm text-zinc-300">
-            Demonstration only. Official Season 1 rankings begin {EVENT_LABEL}.
+            {t.subtitle}
           </p>
         </Reveal>
 
         <div className="mt-10 space-y-2">
           {ATHLETES.map((row, i) => (
             <Reveal key={row.name} delay={i * 70}>
-              <LeaderRow row={row} rank={i + 1} />
+              <LeaderRow row={row} rank={i + 1} lang={lang} />
             </Reveal>
           ))}
         </div>
 
         <p className="mt-8 text-center font-display text-sm tracking-wide text-zinc-400">
-          Your name could be here in Season 1.
+          {t.footer}
         </p>
       </div>
     </section>
