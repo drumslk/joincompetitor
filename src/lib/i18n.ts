@@ -44,7 +44,7 @@ export const dict = {
       steps: [
         {
           title: "Weekly Challenge",
-          text: "A new strength, bodyweight, endurance or speed challenge is released every week.",
+          text: "A strength, bodyweight, endurance or speed challenge is released every week.",
         },
         {
           title: "Complete It Anywhere",
