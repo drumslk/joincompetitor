@@ -20,13 +20,13 @@ export function SiteHeader() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-background">
-      <div className="mx-auto flex h-[4.75rem] max-w-7xl items-center justify-between gap-4 overflow-hidden px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-[5.75rem] max-w-7xl items-center justify-between gap-4 overflow-hidden px-4 sm:px-6 lg:px-8">
         <a
           href="#top"
           className="flex shrink-0 items-center"
           aria-label="Competitor home"
         >
-          <Logo className="h-[4.25rem]" />
+          <Logo className="h-[5.25rem]" />
         </a>
 
         {/* Desktop navigation */}

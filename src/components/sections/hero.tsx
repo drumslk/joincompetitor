@@ -55,12 +55,12 @@ export function Hero() {
   }
 
   return (
-    <section id="about" className="relative overflow-hidden pt-[4.75rem]">
+    <section id="about" className="relative overflow-hidden pt-[5.75rem]">
       {/* Full-screen media band with looping background video */}
       <div
         ref={mediaRef}
         onMouseMove={handleSpotlight}
-        className="group relative flex min-h-[calc(100dvh-4.75rem)] w-full items-center overflow-hidden"
+        className="group relative flex min-h-[calc(100dvh-5.75rem)] w-full items-center overflow-hidden"
         style={{ ["--mx" as string]: "50%", ["--my" as string]: "50%" }}
       >
         {/* Background video (parallax + slight scale) */}
