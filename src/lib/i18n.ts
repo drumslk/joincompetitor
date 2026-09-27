@@ -85,7 +85,7 @@ export const dict = {
         "Gym, Club & Community",
       ],
       freeLead: "Season 1 is",
-      freeHighlight: "free to enter",
+      freeHighlight: "free",
       freeSub: "No entry fee. No subscription required.",
     },
     leaderboard: {
