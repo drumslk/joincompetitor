@@ -1,8 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { CalendarDays, Trophy, Crown } from "lucide-react";
-import { StretchIcon } from "@/components/icons/stretch";
+import { Rocket, CalendarDays, Trophy, Crown } from "lucide-react";
 import { SectionHeading } from "./section-heading";
 import { Reveal } from "@/components/fx/reveal";
 import { cn } from "@/lib/utils";
@@ -16,7 +15,7 @@ type Stop = {
 
 const STOPS: Stop[] = [
   {
-    icon: StretchIcon,
+    icon: Rocket,
     period: "Oct–Dec 2026",
     label: "Pre-Season",
     text: "Discover COMPETITOR through selected test events and early access.",
