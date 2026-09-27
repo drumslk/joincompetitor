@@ -75,7 +75,7 @@ export const dict = {
     levels: {
       title: "Built for Every Level.",
       intro:
-        "You don't need to be an elite athlete to become a Competitor. Measure yourself against athletes in your division while remaining part of one global fitness league.",
+        "You don't need to be an athlete to become a Competitor. Measure yourself against athletes in your division while remaining part of one global fitness league.",
       divisions: [
         "Men & Women",
         "Age Divisions",
@@ -144,7 +144,7 @@ export const dict = {
           a: "Season 1 starts on January 1, 2027. Weekly challenges continue through the end of April, followed by the Playoffs in May and the online Finals in June.",
         },
         {
-          q: "Do I need to be an elite athlete?",
+          q: "Do I need to be an athlete?",
           a: "No. COMPETITOR is designed for different fitness levels, with divisions that allow you to compare yourself with relevant competitors.",
         },
         {
@@ -252,7 +252,7 @@ export const dict = {
     levels: {
       title: "Conçu pour tous les niveaux.",
       intro:
-        "Pas besoin d'être un athlète d'élite pour devenir un Compétiteur. Mesure-toi à des athlètes de ta catégorie, tout en faisant partie d'une même ligue de fitness mondiale.",
+        "Pas besoin d'être un athlète pour devenir un Compétiteur. Mesure-toi à des athlètes de ta catégorie, tout en faisant partie d'une même ligue de fitness mondiale.",
       divisions: [
         "Hommes & Femmes",
         "Catégories d'âge",
@@ -321,7 +321,7 @@ export const dict = {
           a: "La Saison 1 débute le 1er janvier 2027. Les défis hebdomadaires se poursuivent jusqu'à fin avril, suivis des Playoffs en mai et des Finales en ligne en juin.",
         },
         {
-          q: "Faut-il être un athlète d'élite ?",
+          q: "Faut-il être un athlète ?",
           a: "Non. COMPETITOR est pensé pour tous les niveaux, avec des catégories qui te permettent de te comparer à des compétiteurs pertinents.",
         },
         {
