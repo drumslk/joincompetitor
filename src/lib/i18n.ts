@@ -34,7 +34,7 @@ export const dict = {
       subtitle: "One Challenge. One Score. One Global Ranking.",
       description:
         "Every week, complete a new fitness challenge from your gym, home or outdoors. Submit your score and video, earn points and climb the global rankings.",
-      badge: "Season 1 · Starts Jan 2027 · Free to Compete",
+      badge: "Season 1 · Starts Jan 2027",
       flags: "Athletes competing worldwide — and growing",
       athletes: "athletes already in",
     },
