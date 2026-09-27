@@ -186,7 +186,7 @@ export const dict = {
     meta: {
       title: "COMPETITOR — La ligue de fitness pour tous",
       description:
-        "COMPETITOR, c'est la ligue de fitness pour tous. Relève des défis chaque semaine où tu veux, soumets ta performance, gagne des points et grimpe au classement mondial. La Saison 1 débute le 1er janvier 2027 — gratuite.",
+        "COMPETITOR, c'est la ligue de fitness pour tous. Relève des défis chaque semaine où tu veux, envoie ta performance, gagne des points et grimpe au classement mondial. La Saison 1 débute le 1er janvier 2027 — gratuite.",
     },
     nav: {
       how: "Comment ça marche",
@@ -210,7 +210,7 @@ export const dict = {
       titleB: "pour tous.",
       subtitle: "Un défi. Un score. Un classement mondial.",
       description:
-        "Chaque semaine, relève un nouveau défi fitness depuis ta salle, chez toi ou en extérieur. Soumets ton score et ta vidéo, gagne des points et grimpe au classement mondial.",
+        "Chaque semaine, relève un nouveau défi fitness depuis ta salle, chez toi ou en extérieur. Envoie ton score et ta vidéo, gagne des points et grimpe au classement mondial.",
       badge: "Saison 1 · Start jan. 2027",
       flags: "Des athlètes du monde entier — et ça grandit",
       athletes: "athlètes déjà inscrits",
@@ -228,7 +228,7 @@ export const dict = {
           text: "Réalise le défi à la salle, chez toi ou en extérieur, selon le matériel nécessaire.",
         },
         {
-          title: "Soumets ta performance",
+          title: "Envoie ta performance",
           text: "Saisis ton score et envoie une vidéo de ta performance, filmée en continu via l'app COMPETITOR.",
         },
         {
