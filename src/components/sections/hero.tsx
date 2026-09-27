@@ -78,9 +78,10 @@ export function Hero() {
           <source src="/hero.mp4" type="video/mp4" />
         </video>
 
-        {/* Strong dark veil so every line of text stays perfectly readable */}
-        <div className="absolute inset-0 bg-black/60" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/45 to-transparent" />
+        {/* Dark veil: lighter uniform layer (video stays visible) + a strong
+            left-to-right gradient that keeps the text side perfectly readable. */}
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/50 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40" />
 
         {/* Cursor spotlight: soft red/white glow following the pointer */}
