@@ -211,7 +211,7 @@ export const dict = {
       subtitle: "Un défi. Un score. Un classement mondial.",
       description:
         "Chaque semaine, relève un nouveau défi fitness depuis ta salle, chez toi ou en extérieur. Soumets ton score et ta vidéo, gagne des points et grimpe au classement mondial.",
-      badge: "Saison 1 · Départ jan. 2027 · Gratuit",
+      badge: "Saison 1 · Start jan. 2027",
       flags: "Des athlètes du monde entier — et ça grandit",
       athletes: "athlètes déjà inscrits",
     },
