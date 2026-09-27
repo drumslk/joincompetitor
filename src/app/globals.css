@@ -119,6 +119,14 @@
     animation: ping-dot 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
   }
 
+  /* "Shooting star" that travels the Road to the Finals timeline */
+  .shoot-x {
+    animation: shoot-x 4.5s linear infinite;
+  }
+  .shoot-y {
+    animation: shoot-y 4.5s linear infinite;
+  }
+
   /* ---- Scroll reveal ---- */
   .reveal {
     opacity: 0;
@@ -199,8 +207,14 @@
   .orb,
   .grain::before,
   .hero-glow,
-  .text-sheen {
+  .text-sheen,
+  .shoot-x,
+  .shoot-y {
     animation: none;
+  }
+  .shoot-x,
+  .shoot-y {
+    opacity: 0.35;
   }
   .hero-rise {
     opacity: 1;
@@ -311,6 +325,36 @@
   70%,
   100% {
     transform: scale(3.2);
+    opacity: 0;
+  }
+}
+
+@keyframes shoot-x {
+  0% {
+    left: -12%;
+    opacity: 0;
+  }
+  10%,
+  90% {
+    opacity: 1;
+  }
+  100% {
+    left: 112%;
+    opacity: 0;
+  }
+}
+
+@keyframes shoot-y {
+  0% {
+    top: -8%;
+    opacity: 0;
+  }
+  10%,
+  90% {
+    opacity: 1;
+  }
+  100% {
+    top: 108%;
     opacity: 0;
   }
 }

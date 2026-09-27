@@ -74,16 +74,30 @@ export function Road() {
         <SectionHeading>The Road to the Finals</SectionHeading>
 
         <div ref={trackRef} className="relative mt-16">
-          {/* Track: vertical on mobile, horizontal on desktop */}
-          <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-white/10 sm:left-0 sm:top-8 sm:h-px sm:w-full sm:translate-x-0" />
-          {/* Vertical fill (mobile only) */}
+          {/* A "shooting star" glides along the timeline (behind the nodes/text)
+              instead of a fixed line — keeps the labels perfectly readable.
+              Horizontal on desktop, vertical on mobile. */}
           <div
             aria-hidden
-            className="absolute left-1/2 top-0 w-px -translate-x-1/2 bg-primary shadow-[0_0_12px_2px_rgba(225,29,43,0.6)] transition-[height] duration-200 ease-out sm:hidden"
-            style={{ height: `${progress * 100}%` }}
-          />
-          {/* Horizontal fill (desktop only) */}
-          <FillBar progress={progress} />
+            className="pointer-events-none absolute inset-0 overflow-hidden"
+          >
+            <span
+              className="shoot-x absolute top-8 hidden h-[3px] w-28 -translate-y-1/2 rounded-full sm:block"
+              style={{
+                background:
+                  "linear-gradient(to right, transparent, rgba(225,29,43,0.2), #ff2d3a)",
+                boxShadow: "0 0 14px 2px rgba(225,29,43,0.75)",
+              }}
+            />
+            <span
+              className="shoot-y absolute left-1/2 h-28 w-[3px] -translate-x-1/2 rounded-full sm:hidden"
+              style={{
+                background:
+                  "linear-gradient(to bottom, transparent, rgba(225,29,43,0.2), #ff2d3a)",
+                boxShadow: "0 0 14px 2px rgba(225,29,43,0.75)",
+              }}
+            />
+          </div>
 
           <div className="relative flex flex-col items-stretch gap-12 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
             {STOPS.map(({ icon: Icon, period, label, text }, i) => {
@@ -143,16 +157,5 @@ export function Road() {
         </p>
       </div>
     </section>
-  );
-}
-
-/** Horizontal fill bar for desktop (width-driven), hidden on mobile. */
-function FillBar({ progress }: { progress: number }) {
-  return (
-    <div
-      aria-hidden
-      className="absolute left-0 top-8 hidden h-px bg-gradient-to-r from-primary to-primary shadow-[0_0_12px_2px_rgba(225,29,43,0.6)] transition-[width] duration-200 ease-out sm:block"
-      style={{ width: `${progress * 100}%` }}
-    />
   );
 }
