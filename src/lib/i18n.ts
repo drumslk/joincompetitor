@@ -40,7 +40,7 @@ export const dict = {
     },
     how: {
       title: "How It Works",
-      subtitle: "From the weekly challenge to the global rankings.",
+      subtitle: "From weekly challenge to global ranking.",
       steps: [
         {
           title: "Weekly Challenge",
