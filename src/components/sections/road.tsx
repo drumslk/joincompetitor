@@ -1,14 +1,14 @@
 "use client";
 
 import * as React from "react";
-import { Sparkles, CalendarDays, Trophy, Crown } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import { CalendarDays, Trophy, Crown } from "lucide-react";
+import { StretchIcon } from "@/components/icons/stretch";
 import { SectionHeading } from "./section-heading";
 import { Reveal } from "@/components/fx/reveal";
 import { cn } from "@/lib/utils";
 
 type Stop = {
-  icon: LucideIcon;
+  icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
   period: string;
   label: string;
   text: string;
@@ -16,7 +16,7 @@ type Stop = {
 
 const STOPS: Stop[] = [
   {
-    icon: Sparkles,
+    icon: StretchIcon,
     period: "Oct–Dec 2026",
     label: "Pre-Season",
     text: "Discover COMPETITOR through selected test events and early access.",
