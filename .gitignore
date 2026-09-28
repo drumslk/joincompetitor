@@ -45,3 +45,4 @@ next-env.d.ts
 
 # Local waitlist backups (contain personal emails — never commit)
 /waitlist-backup-*.json
+/LOGO COMPETITOR NET.png
