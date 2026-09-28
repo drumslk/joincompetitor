@@ -53,12 +53,12 @@ export function SiteHeader({ lang = "en" }: { lang?: Lang }) {
           </WaitlistButton>
         </div>
 
-        {/* Mobile: language switch + compact CTA + hamburger */}
+        {/* Mobile: compact CTA + stacked language switch + hamburger */}
         <div className="flex shrink-0 items-center gap-1.5 lg:hidden">
-          <LangSwitch lang={lang} />
           <WaitlistButton size="sm" className="h-9 whitespace-nowrap px-2.5 text-[11px]">
             {t.cta.short}
           </WaitlistButton>
+          <LangSwitch lang={lang} stacked />
           <button
             type="button"
             className="inline-flex size-9 shrink-0 items-center justify-center rounded-md text-white"
