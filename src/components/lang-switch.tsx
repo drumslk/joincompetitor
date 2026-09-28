@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 export function LangSwitch({ lang }: { lang: Lang }) {
   const item = (active: boolean) =>
     cn(
-      "inline-flex items-center gap-1 px-1.5 py-1 font-display text-xs tracking-wide transition-colors",
+      "inline-flex items-center gap-1 px-1 py-1 font-display text-xs tracking-wide transition-colors",
       active ? "text-white" : "text-zinc-500 hover:text-zinc-300",
     );
   return (

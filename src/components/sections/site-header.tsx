@@ -23,7 +23,7 @@ export function SiteHeader({ lang = "en" }: { lang?: Lang }) {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-background">
-      <div className="mx-auto flex h-[5.75rem] max-w-7xl items-center justify-between gap-4 overflow-hidden px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-[5.75rem] max-w-7xl items-center justify-between gap-2 overflow-hidden px-3 sm:gap-4 sm:px-6 lg:px-8">
         <a
           href="#top"
           className="flex shrink-0 items-center"
@@ -53,14 +53,15 @@ export function SiteHeader({ lang = "en" }: { lang?: Lang }) {
           </WaitlistButton>
         </div>
 
-        {/* Mobile: compact CTA + hamburger */}
-        <div className="flex shrink-0 items-center gap-2 lg:hidden">
-          <WaitlistButton size="sm" className="h-10 whitespace-nowrap px-3.5 text-xs">
+        {/* Mobile: language switch + compact CTA + hamburger */}
+        <div className="flex shrink-0 items-center gap-1.5 lg:hidden">
+          <LangSwitch lang={lang} />
+          <WaitlistButton size="sm" className="h-9 whitespace-nowrap px-2.5 text-[11px]">
             {t.cta.short}
           </WaitlistButton>
           <button
             type="button"
-            className="inline-flex size-10 shrink-0 items-center justify-center rounded-md text-white"
+            className="inline-flex size-9 shrink-0 items-center justify-center rounded-md text-white"
             aria-label="Toggle menu"
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((v) => !v)}
@@ -78,9 +79,6 @@ export function SiteHeader({ lang = "en" }: { lang?: Lang }) {
         )}
       >
         <div className="flex flex-col gap-1 px-4 py-4">
-          <div className="mb-2 flex justify-center">
-            <LangSwitch lang={lang} />
-          </div>
           {NAV.map((item) => (
             <a
               key={item.href}
