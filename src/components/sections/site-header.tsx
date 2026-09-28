@@ -29,7 +29,7 @@ export function SiteHeader({ lang = "en" }: { lang?: Lang }) {
           className="flex shrink-0 items-center"
           aria-label="Competitor home"
         >
-          <Logo className="h-[5.25rem]" />
+          <Logo className="h-16 sm:h-[4.75rem] lg:h-[5.25rem]" />
         </a>
 
         {/* Desktop navigation */}
