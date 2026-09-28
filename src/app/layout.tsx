@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { headers } from "next/headers";
 import { Inter, Saira_Condensed } from "next/font/google";
 import "./globals.css";
@@ -62,6 +63,9 @@ export default async function RootLayout({
   const pathname = (await headers()).get("x-pathname") ?? "";
   const lang = pathname.startsWith("/fr") ? "fr" : "en";
 
+  // Privacy-friendly analytics (Plausible) — only when a domain is configured.
+  const plausibleDomain = process.env.PLAUSIBLE_DOMAIN;
+
   return (
     <html
       lang={lang}
@@ -70,6 +74,14 @@ export default async function RootLayout({
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <WaitlistProvider>{children}</WaitlistProvider>
         <Toaster position="top-center" richColors theme="dark" />
+        {plausibleDomain && (
+          <Script
+            defer
+            data-domain={plausibleDomain}
+            src="https://plausible.io/js/script.js"
+            strategy="afterInteractive"
+          />
+        )}
       </body>
     </html>
   );

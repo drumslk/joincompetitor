@@ -84,6 +84,10 @@ export function WaitlistProvider({ children }: { children: React.ReactNode }) {
         toast.success(t.toastAlready);
       } else {
         toast.success(t.toastDone);
+        // Track the conversion in Plausible (no-op when analytics is disabled).
+        (window as unknown as { plausible?: (e: string) => void }).plausible?.(
+          "Signup",
+        );
       }
     } catch (err) {
       setStatus("idle");
