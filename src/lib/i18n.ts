@@ -294,7 +294,7 @@ export const dict = {
           text: "Les meilleurs s'affrontent pour les tout premiers titres COMPETITOR.",
         },
       ],
-      bottom: "Seuls les meilleurs avancent.",
+      bottom: "Seuls les meilleurs vont au bout.",
     },
     founding: {
       titleA: "Deviens",
