@@ -42,7 +42,7 @@ function html(to: string): string {
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;background:#0e0e10;border:1px solid rgba(255,255,255,0.08);border-radius:14px;overflow:hidden;">
         <tr><td style="height:4px;background:linear-gradient(90deg,transparent,#e11d2b,transparent);"></td></tr>
         <tr><td style="padding:28px 36px 8px;text-align:center;">
-          <img src="${baseUrl()}/competitor-logo-email.png?v=2" width="200" alt="COMPETITOR — Beat. Compete. Repeat." style="display:inline-block;width:200px;max-width:66%;height:auto;border:0;outline:none;text-decoration:none;" />
+          <img src="${baseUrl()}/competitor-logo-email.png?v=3" width="210" alt="COMPETITOR — Beat. Compete. Repeat." style="display:inline-block;width:200px;max-width:66%;height:auto;border:0;outline:none;text-decoration:none;" />
         </td></tr>
         <tr><td style="padding:24px 36px 0;">
           <h1 style="margin:0 0 6px;font-family:Arial,Helvetica,sans-serif;font-weight:800;font-style:italic;text-transform:uppercase;font-size:26px;color:#ffffff;">You're in.</h1>
