@@ -33,6 +33,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export function WaitlistProvider({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = React.useState(false);
   const [email, setEmail] = React.useState("");
+  const [company, setCompany] = React.useState(""); // honeypot — stays empty for humans
   const [consent, setConsent] = React.useState(false);
   const [status, setStatus] = React.useState<"idle" | "loading" | "done">("idle");
   const [celebrate, setCelebrate] = React.useState(0);
@@ -43,6 +44,7 @@ export function WaitlistProvider({ children }: { children: React.ReactNode }) {
   const open = React.useCallback(() => {
     setStatus("idle");
     setEmail("");
+    setCompany("");
     setConsent(false);
     setIsOpen(true);
   }, []);
@@ -68,7 +70,7 @@ export function WaitlistProvider({ children }: { children: React.ReactNode }) {
       const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: value }),
+        body: JSON.stringify({ email: value, company }),
       });
       const data = await res.json();
 
@@ -124,6 +126,19 @@ export function WaitlistProvider({ children }: { children: React.ReactNode }) {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="mt-2 flex flex-col gap-4">
+              {/* Honeypot: hidden from users, only bots fill it. */}
+              <div aria-hidden className="absolute left-[-9999px] h-0 w-0 overflow-hidden" tabIndex={-1}>
+                <label htmlFor="company-website">Company</label>
+                <input
+                  id="company-website"
+                  type="text"
+                  name="company"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={company}
+                  onChange={(e) => setCompany(e.target.value)}
+                />
+              </div>
               <div className="flex flex-col gap-1.5">
                 <label
                   htmlFor="waitlist-email"

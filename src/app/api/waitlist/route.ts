@@ -7,6 +7,23 @@ export const runtime = "nodejs";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+// Simple in-memory per-IP rate limit (single Railway instance). Blocks bot
+// floods without adding friction for real users.
+const RATE_MAX = 10;
+const RATE_WINDOW_MS = 10 * 60 * 1000;
+const rateHits = new Map<string, number[]>();
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const recent = (rateHits.get(ip) ?? []).filter((t) => now - t < RATE_WINDOW_MS);
+  if (recent.length >= RATE_MAX) {
+    rateHits.set(ip, recent);
+    return true;
+  }
+  recent.push(now);
+  rateHits.set(ip, recent);
+  return false;
+}
+
 // Optional signup webhook. Disabled by default — only fires when
 // WAITLIST_WEBHOOK_URL is explicitly set (no third party is notified otherwise).
 const WEBHOOK_URL = process.env.WAITLIST_WEBHOOK_URL;
@@ -34,13 +51,31 @@ async function notifyWebhook(payload: Record<string, unknown>) {
 }
 
 export async function POST(request: Request) {
+  const ip =
+    (request.headers.get("x-forwarded-for") ?? "").split(",")[0].trim() ||
+    "unknown";
+  if (isRateLimited(ip)) {
+    return NextResponse.json(
+      { error: "Too many attempts. Please try again in a few minutes." },
+      { status: 429 },
+    );
+  }
+
   let email: unknown;
+  let honeypot: unknown;
 
   try {
     const body = await request.json();
     email = body?.email;
+    honeypot = body?.company;
   } catch {
     return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
+  }
+
+  // Honeypot: a hidden field real users never fill. If populated, it's a bot —
+  // return a fake success so the bot moves on without triggering a real signup.
+  if (typeof honeypot === "string" && honeypot.trim() !== "") {
+    return NextResponse.json({ ok: true }, { status: 200 });
   }
 
   if (typeof email !== "string" || !EMAIL_RE.test(email.trim())) {
