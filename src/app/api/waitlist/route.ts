@@ -1,15 +1,16 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { sendWelcomeEmail } from "@/lib/email";
+import { sendWelcomeEmail, sendSignupNotification } from "@/lib/email";
 
 // Keep this route on the Node.js runtime — better-sqlite3 is native.
 export const runtime = "nodejs";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// Simple in-memory per-IP rate limit (single Railway instance). Blocks bot
-// floods without adding friction for real users.
-const RATE_MAX = 10;
+// Simple in-memory per-IP rate limit (single Railway instance). Set high so a
+// busy event/booth on shared WiFi (one public IP) is never blocked — it only
+// stops a runaway automated flood. The honeypot handles ordinary bots.
+const RATE_MAX = 300;
 const RATE_WINDOW_MS = 10 * 60 * 1000;
 const rateHits = new Map<string, number[]>();
 function isRateLimited(ip: string): boolean {
@@ -95,8 +96,13 @@ export async function POST(request: Request) {
     // New signup -> send the confirmation email and notify Make.com. Both are
     // awaited so they aren't cut off when the response returns, but neither can
     // fail the signup (each swallows its own errors).
+    const total = (
+      db.prepare("SELECT COUNT(*) AS c FROM waitlist").get() as { c: number }
+    ).c;
+
     await Promise.allSettled([
       sendWelcomeEmail(normalized),
+      sendSignupNotification(normalized, total),
       notifyWebhook({
         email: normalized,
         id: Number(result.lastInsertRowid),

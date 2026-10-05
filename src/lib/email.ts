@@ -11,6 +11,8 @@ import { unsubscribeUrl, unsubscribeApiUrl, baseUrl } from "./unsubscribe";
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
 const RESEND_FROM =
   process.env.RESEND_FROM ?? "COMPETITOR <onboarding@resend.dev>";
+// Address that receives an internal alert on every new signup (optional).
+const ADMIN_NOTIFY_EMAIL = process.env.ADMIN_NOTIFY_EMAIL;
 
 const SUBJECT = "You're in — welcome to COMPETITOR 🏆";
 
@@ -116,5 +118,43 @@ export async function sendWelcomeEmail(to: string): Promise<void> {
     }
   } catch (err) {
     console.error("Resend email error", err);
+  }
+}
+
+/**
+ * Internal alert to the organizer on each new signup. Never throws; no-ops when
+ * ADMIN_NOTIFY_EMAIL (or the API key) is unset.
+ */
+export async function sendSignupNotification(
+  email: string,
+  total?: number,
+): Promise<void> {
+  if (!RESEND_API_KEY || !ADMIN_NOTIFY_EMAIL) return;
+  const countLine =
+    typeof total === "number" ? ` — total signups: ${total}` : "";
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: RESEND_FROM,
+        to: ADMIN_NOTIFY_EMAIL,
+        reply_to: email,
+        subject: `🏆 New COMPETITOR signup: ${email}`,
+        text: `New Season 1 signup: ${email}${countLine}\n\nTime: ${new Date().toISOString()}`,
+      }),
+      signal: controller.signal,
+    });
+    clearTimeout(timeout);
+    if (!res.ok) {
+      console.error("Resend admin notify failed", res.status, await res.text());
+    }
+  } catch (err) {
+    console.error("Resend admin notify error", err);
   }
 }
